@@ -1,0 +1,8 @@
+{
+	"date":"2016-11-14", //当前日期
+	"total":2841,		 //总数
+	"lastScanDate":"2016-11-14",   //上次扫描日期(日期中断的情况)
+	"lastScanStock":"",  //上次扫描的票
+	"lastStockDailyDate":"", //上次扫描日交易详情日期（获取日交易详情-往期数据）
+	"task":"scantotal" , //当前任务 scantotal(扫描全部stock，获取新的票),scandaily(获取日交易数据),scancompany(获取公司及公司经营相关信息)
+}
