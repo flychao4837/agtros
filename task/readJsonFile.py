@@ -37,7 +37,7 @@ def readFile(inputfile):
             return{'errcode':0,"data":jsData}
 
     else:
-        return {'errcode' : -10000 , 'errmsg' : "Cann\\'t find JSON file"+inputfile}
+        return {'errcode' : -10000 , 'errmsg' : "Cann't find JSON file"+inputfile}
 
 
 
