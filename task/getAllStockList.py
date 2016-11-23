@@ -6,6 +6,7 @@ import datetime as datetime
 import pandas as pd
 import os as os
 import config as config
+from readJsonFile import readFile
 
 def getAllStockList():
     ##获取所有列表 （代码、名称、行业）
@@ -48,5 +49,28 @@ def getAllStockList():
     #     fp.close()
 
     print jsonFile
+    #遍历数据，创建code对应的文件夹
+    #readFile 是从 readJsonFile 引进来的方法 但是 readJsonFile 不是molule不能直接引用
+    # readJsonFile(jsonFile) 会报错
+    tmpDate = readFile(jsonFile)
+
+    if tmpDate['errcode']==0 :
+        list = tmpDate['data']
+        for listitem in list:
+
+            #print listitem
+            baseCodeDir=""
+            if bool(listitem['code']):
+                baseCodeDir = config.dataRootPath
+                baseCodeDir = baseCodeDir+"\\"+listitem['code']
+                if os.path.isdir(baseCodeDir):
+                    pass
+                else:
+                    os.mkdir(baseCodeDir)
+                    #print baseCodeDir
+            else :
+                print 'error code'
+    else:
+        print tmpDate['errmsg']
 
 getAllStockList()

@@ -34,11 +34,10 @@ def readFile(inputfile):
             # print jsData['code']
             # print jsData['code']['344']
 
-            return{'errcode':0,"data":jsData}
+            return{'errcode':0,"data":jsData ,'errmsg':''}
 
     else:
-        return {'errcode' : -10000 , 'errmsg' : "Cann't find JSON file"+inputfile}
-
+        return {'errcode' : -10000 , 'errmsg' : "Cann't find JSON file"+inputfile,'data':''}
 
 
 

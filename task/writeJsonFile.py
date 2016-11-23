@@ -4,7 +4,7 @@
 
 import os as os
 import json as json
-import confg
+import config
 
 def writeFile(inputfile,data):
     if os.path.isfile(inputfile):
