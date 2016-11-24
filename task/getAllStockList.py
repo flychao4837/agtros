@@ -7,6 +7,8 @@ import pandas as pd
 import os as os
 import config as config
 from readJsonFile import readFile
+from getDailyInfo import getDailyData
+import threading
 
 def getAllStockList():
     ##获取所有列表 （代码、名称、行业）
@@ -68,6 +70,12 @@ def getAllStockList():
                 else:
                     os.mkdir(baseCodeDir)
                     #print baseCodeDir
+                ##单个扫描方式
+                getDailyData(listitem['code'])
+                ##用并发操作去扫描，单个扫描太慢
+                # code = listitem['code']
+                # a = threading.Thread(target=getDailyData, args=(code,))
+                # a.start()
             else :
                 print 'error code'
     else:
