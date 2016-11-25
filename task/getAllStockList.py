@@ -55,7 +55,7 @@ def getAllStockList():
     #readFile 是从 readJsonFile 引进来的方法 但是 readJsonFile 不是molule不能直接引用
     # readJsonFile(jsonFile) 会报错
     tmpDate = readFile(jsonFile)
-
+    threads = [] #线程池
     if tmpDate['errcode']==0 :
         list = tmpDate['data']
         for listitem in list:
@@ -71,11 +71,20 @@ def getAllStockList():
                     os.mkdir(baseCodeDir)
                     #print baseCodeDir
                 ##单个扫描方式
-                getDailyData(listitem['code'])
+                #getDailyData(listitem['code'])
                 ##用并发操作去扫描，单个扫描太慢
-                # code = listitem['code']
+                code = listitem['code']
                 # a = threading.Thread(target=getDailyData, args=(code,))
                 # a.start()
+
+
+                th = threading.Thread(target=getDailyData, args=(code,))
+                th.start()
+                threads.append(th)
+
+                    # 等待线程运行完毕
+                for th in threads:
+                    th.join()
             else :
                 print 'error code'
     else:
