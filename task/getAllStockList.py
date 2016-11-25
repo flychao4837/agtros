@@ -14,27 +14,16 @@ def getAllStockList():
     ##获取所有列表 （代码、名称、行业）
     data = ts.get_industry_classified()
 
-    ##获取历史数据
-    #data= ts.get_tick_data('600848', date='2014-01-09')
-
-    ##获取当日交易数据
-    #data = ts.get_today_ticks('601333')
-    #h5 = pd.HDFStore(config.dataRootPath+'\stock_list_all.h5', 'w')
-    #h5['data'] = data
-    #h5.close()
-
     ##获取格式化的日期字符串
-    #datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
-    jsonFile = config.dataRootPath + '\\' + dateStr + '.json'
+    jsonFile = config.dataRootDailyTotal + '\\' + dateStr + '.json'
 
-    ## to_json 参数配置 在tushare中 （file,datatype）,datatype可用的格式
-    #split dict like {index -> [index], columns -> [columns], data -> [values]}
-    #records list like[{column -> value}, ..., {column -> value}]
-    #index dict like {index -> {column -> value}}
-    #columns dict like {column -> {index -> value}}
-    # values just the values array
+            ## to_json 参数配置 在tushare中 （file,datatype）,datatype可用的格式
+            #split dict like {index -> [index], columns -> [columns], data -> [values]}
+            #records list like[{column -> value}, ..., {column -> value}]
+            #index dict like {index -> {column -> value}}
+            #columns dict like {column -> {index -> value}}
+            # values just the values array
 
     ##写json文件方式一
     jsonp = data.to_json( jsonFile ,orient='records')
@@ -70,21 +59,11 @@ def getAllStockList():
                 else:
                     os.mkdir(baseCodeDir)
                     #print baseCodeDir
+
                 ##单个扫描方式
-                #getDailyData(listitem['code'])
+                getDailyData(listitem['code'],'2016-11-18')
                 ##用并发操作去扫描，单个扫描太慢
-                code = listitem['code']
-                # a = threading.Thread(target=getDailyData, args=(code,))
-                # a.start()
 
-
-                th = threading.Thread(target=getDailyData, args=(code,))
-                th.start()
-                threads.append(th)
-
-                    # 等待线程运行完毕
-                for th in threads:
-                    th.join()
             else :
                 print 'error code'
     else:

@@ -14,6 +14,12 @@ dataRootPath = curRootPath+'\data'
 logRootPath = curRootPath+'\log'
 htmlRootPath = curRootPath+'\html'
 taskRootPath = curRootPath+'\task'
+listsRootPath = curRootPath+'\lists'
+
+dataRootDailyTotal = dataRootPath  +'\dailyTotal'
+dataRootDailyTrade = dataRootPath  +'\dailyTrade'
+dataRootDailyInfo = dataRootPath  +'\dailyInfo'
+dataRootDailyNews = dataRootPath  +'\dailyNews'
 
 
 #创建文件根目录
@@ -37,3 +43,31 @@ def creatRootDirectories():
         pass
     else:
         os.mkdir(htmlRootPath)
+
+    if os.path.isdir(listsRootPath):
+        pass
+    else:
+        os.mkdir(listsRootPath)
+
+    if os.path.isdir(dataRootDailyTrade):
+        pass
+    else:
+        os.mkdir(dataRootDailyTrade)
+
+    if os.path.isdir(dataRootDailyInfo):
+        pass
+    else:
+        os.mkdir(dataRootDailyInfo)
+
+    if os.path.isdir(dataRootDailyNews):
+        pass
+    else:
+        os.mkdir(dataRootDailyNews)
+
+    if os.path.isdir(dataRootDailyTotal):
+        pass
+    else:
+        os.mkdir(dataRootDailyTotal)
+
+
+creatRootDirectories()
