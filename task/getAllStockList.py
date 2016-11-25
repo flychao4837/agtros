@@ -16,7 +16,7 @@ def getAllStockList():
 
     ##获取格式化的日期字符串
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
-    jsonFile = config.dataRootDailyTotal + '\\' + dateStr + '.json'
+    jsonFile = config.listsRootPath + '\\' + dateStr + '.json'
 
             ## to_json 参数配置 在tushare中 （file,datatype）,datatype可用的格式
             #split dict like {index -> [index], columns -> [columns], data -> [values]}
@@ -26,7 +26,9 @@ def getAllStockList():
             # values just the values array
 
     ##写json文件方式一
-    jsonp = data.to_json( jsonFile ,orient='records')
+    #jsonp = data.to_json(jsonFile, orient='records')
+
+    data.to_json( jsonFile ,orient='records')
 
     ##写json文件方式二
     #jsonp = data.to_json(）
@@ -52,7 +54,7 @@ def getAllStockList():
             #print listitem
             baseCodeDir=""
             if bool(listitem['code']):
-                baseCodeDir = config.dataRootPath
+                baseCodeDir = config.dataRootDailyTrade
                 baseCodeDir = baseCodeDir+"\\"+listitem['code']
                 if os.path.isdir(baseCodeDir):
                     pass
@@ -61,6 +63,8 @@ def getAllStockList():
                     #print baseCodeDir
 
                 ##单个扫描方式
+                #getDailyData(listitem['code'])
+
                 getDailyData(listitem['code'],'2016-11-18')
                 ##用并发操作去扫描，单个扫描太慢
 

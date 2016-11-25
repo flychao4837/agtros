@@ -14,7 +14,7 @@ dataRootPath = curRootPath+'\data'
 logRootPath = curRootPath+'\log'
 htmlRootPath = curRootPath+'\html'
 taskRootPath = curRootPath+'\task'
-listsRootPath = curRootPath+'\lists'
+listsRootPath = dataRootPath+'\lists'
 
 dataRootDailyTotal = dataRootPath  +'\dailyTotal'
 dataRootDailyTrade = dataRootPath  +'\dailyTrade'
