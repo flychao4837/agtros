@@ -12,7 +12,7 @@ import threading
 
 def getAllStockList():
     ##获取所有列表 （代码、名称、行业）
-    data = ts.get_industry_classified()
+    #data = ts.get_industry_classified()
 
     ##获取格式化的日期字符串
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -25,10 +25,12 @@ def getAllStockList():
             #columns dict like {column -> {index -> value}}
             # values just the values array
 
+            # to_json  , force_ascii 设置中文ascii编码 默认True 若直接看 设为False
+
     ##写json文件方式一
     #jsonp = data.to_json(jsonFile, orient='records')
 
-    data.to_json( jsonFile ,orient='records')
+    #data.to_json( jsonFile ,orient='records', force_ascii =False)
 
     ##写json文件方式二
     #jsonp = data.to_json(）
@@ -41,7 +43,6 @@ def getAllStockList():
     #     fp.write(jsonp)
     #     fp.close()
 
-    print jsonFile
     #遍历数据，创建code对应的文件夹
     #readFile 是从 readJsonFile 引进来的方法 但是 readJsonFile 不是molule不能直接引用
     # readJsonFile(jsonFile) 会报错
@@ -56,17 +57,20 @@ def getAllStockList():
             if bool(listitem['code']):
                 baseCodeDir = config.dataRootDailyTrade
                 baseCodeDir = baseCodeDir+"\\"+listitem['code']
-                if os.path.isdir(baseCodeDir):
+                if stock[0] == "2" or stock[0] == "9":
                     pass
                 else:
-                    os.mkdir(baseCodeDir)
-                    #print baseCodeDir
+                    if os.path.isdir(baseCodeDir):
+                        pass
+                    else:
+                        os.mkdir(baseCodeDir)
+                        #print baseCodeDir
 
-                ##单个扫描方式
-                #getDailyData(listitem['code'])
+                    ##单个扫描方式
+                    #getDailyData(listitem['code'])
 
-                getDailyData(listitem['code'],'2016-11-18')
-                ##用并发操作去扫描，单个扫描太慢
+                    getDailyData(listitem['code'],'2016-11-18')
+                    ##用并发操作去扫描，单个扫描太慢
 
             else :
                 print 'error code'
