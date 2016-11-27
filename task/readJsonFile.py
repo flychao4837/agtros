@@ -29,10 +29,10 @@ def readFile(inputfile):
             #print type(outStr)
 
 
-            # print jsData
+            #print jsData
             # print type(jsData)
-            # print jsData['code']
-            # print jsData['code']['344']
+            #print jsData[0]
+
 
             return{'errcode':0,"data":jsData ,'errmsg':''}
 
@@ -41,4 +41,4 @@ def readFile(inputfile):
 
 
 
-#readFile(config.dataRootPath+'\\2016-11-07.json')
+#readFile(config.listsRootPath+'\\stockBasic.json')

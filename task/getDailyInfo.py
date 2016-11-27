@@ -54,7 +54,7 @@ def getDailyData(stock="", date=""):
                 size = os.path.getsize(jsonFile)
                 #print 'There are %f K' % (size / 1024.0)
 
-                if size >60000 :
+                if size >20000 :
                     print(stock+" Pass")
                 else:
                     data = ts.get_tick_data(stock, date=date)

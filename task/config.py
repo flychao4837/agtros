@@ -4,8 +4,8 @@
 #系统配置，路径判断、目录生成
 import os
 
+# 2f66cdc59fb70fa0675fdf34c1c1f86ce6d5c21419b33936ebc27029d9ae5511
 #获取文件根路径、相对路径
-
 curFileWorkPath = os.getcwd()
 filePath = os.path.split( curFileWorkPath )
 curRootPath =filePath[0]

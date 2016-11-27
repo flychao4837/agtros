@@ -1,18 +1,14 @@
 #!/usr/bin/python
 # coding=UTF-8
-import tushare as ts
-import time as time
 import datetime as datetime
-import pandas as pd
 import os as os
 import config as config
 from readJsonFile import readFile
 from getDailyInfo import getDailyData
-import threading
 
 def getAllStockList():
     ##获取所有列表 （代码、名称、行业）
-    #data = ts.get_industry_classified()
+    # data = ts.get_industry_classified()
 
     ##获取格式化的日期字符串
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -30,7 +26,7 @@ def getAllStockList():
     ##写json文件方式一
     #jsonp = data.to_json(jsonFile, orient='records')
 
-    #data.to_json( jsonFile ,orient='records', force_ascii =False)
+    # data.to_json( jsonFile ,orient='records', force_ascii =False)
 
     ##写json文件方式二
     #jsonp = data.to_json(）
@@ -47,7 +43,7 @@ def getAllStockList():
     #readFile 是从 readJsonFile 引进来的方法 但是 readJsonFile 不是molule不能直接引用
     # readJsonFile(jsonFile) 会报错
     tmpDate = readFile(jsonFile)
-    threads = [] #线程池
+
     if tmpDate['errcode']==0 :
         list = tmpDate['data']
         for listitem in list:
@@ -57,7 +53,7 @@ def getAllStockList():
             if bool(listitem['code']):
                 baseCodeDir = config.dataRootDailyTrade
                 baseCodeDir = baseCodeDir+"\\"+listitem['code']
-                if stock[0] == "2" or stock[0] == "9":
+                if listitem['code'][0] == "2" or listitem['code'][0] == "9":
                     pass
                 else:
                     if os.path.isdir(baseCodeDir):
@@ -69,12 +65,11 @@ def getAllStockList():
                     ##单个扫描方式
                     #getDailyData(listitem['code'])
 
-                    getDailyData(listitem['code'],'2016-11-18')
+                    getDailyData(listitem['code'],'2016-11-15')
                     ##用并发操作去扫描，单个扫描太慢
-
-            else :
+            else:
                 print 'error code'
-    else:
+    else: #读取文件出错
         print tmpDate['errmsg']
 
 getAllStockList()
