@@ -41,4 +41,4 @@ def readFile(inputfile):
 
 
 
-#readFile(config.listsRootPath+'\\stockBasic.json')
+#readFile(config.listsRootPath+'\\stockBasic-bak.json')

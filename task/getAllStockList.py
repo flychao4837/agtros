@@ -9,7 +9,7 @@ from getDailyInfo import getDailyData
 
 def getAllStockList():
     ##获取所有列表 （代码、名称、行业）
-    data = ts.get_industry_classified()
+    #data = ts.get_industry_classified()
 
     ##获取格式化的日期字符串
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -27,7 +27,7 @@ def getAllStockList():
     ##写json文件方式一
     #jsonp = data.to_json(jsonFile, orient='records', force_ascii =False)
 
-    data.to_json( jsonFile ,orient='records', force_ascii =False)
+    #data.to_json( jsonFile ,orient='records', force_ascii =False)
 
     ##写json文件方式二
     #jsonp = data.to_json(）

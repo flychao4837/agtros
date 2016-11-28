@@ -64,4 +64,6 @@ def getSingleStockDailyList(stock=""):
 
     else:
         print "获取的时间不对"
-getSingleStockDailyList("000001")
+getSingleStockDailyList("601069")
+
+#601069 603779在basic中没记录

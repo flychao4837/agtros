@@ -36,5 +36,5 @@ from getDailyInfo import getDailyData
 jsonFile = config.listsRootPath + "\stockBasic.json"
 
 data = ts.get_stock_basics()
-print data
+#print data
 data.to_json(jsonFile, force_ascii =False)

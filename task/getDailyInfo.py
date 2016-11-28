@@ -8,7 +8,7 @@ import os as os
 import config as config
 from readJsonFile import readFile
 from writeJsonFile import writeFile
-
+from getTradeDay import get_week_day
 fileName = config.configRootPath+'\scanData.json'
 dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
 
@@ -48,18 +48,24 @@ def getDailyData(stock="", date=""):
 
         elif bool(date) & bool(stock):
             #按日期获取
-            jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + date + ".json"
+            isWorkDay = get_week_day(date)
+            if isWorkDay:
+                jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + date + ".json"
 
-            #data = ts.get_tick_data( stock, date=date)
+                ### 判断该日期下的文件是否大于100KB 是默认历史数据已获取，反正重新获取
+                if os.path.isfile(jsonFile):
+                    size = os.path.getsize(jsonFile)
+                    #print 'There are %f K' % (size / 1024.0)
 
-            ### 判断该日期下的文件是否大于100KB 是默认历史数据已获取，反正重新获取
-            if os.path.isfile(jsonFile):
-                size = os.path.getsize(jsonFile)
-                #print 'There are %f K' % (size / 1024.0)
-
-                if size >20000 :
-                    print(stock+" Pass")
-                    return True
+                    if size >20000 :
+                        print(stock+" Pass")
+                        return True
+                    else:
+                        data = ts.get_tick_data(stock, date=date)
+                        data.to_json(jsonFile, orient='records', force_ascii =False)
+                        print(stock)
+                        print(date)
+                        return True
                 else:
                     data = ts.get_tick_data(stock, date=date)
                     data.to_json(jsonFile, orient='records', force_ascii =False)
@@ -67,14 +73,9 @@ def getDailyData(stock="", date=""):
                     print(date)
                     return True
             else:
-                data = ts.get_tick_data(stock, date=date)
-                data.to_json(jsonFile, orient='records', force_ascii =False)
-                print(stock)
-                print(date)
-                return True
+                print ("Weekend Pass")
 
-
-getDailyData("002732")
+#getDailyData("002732")
 
 
 ##获取当日交易数据
