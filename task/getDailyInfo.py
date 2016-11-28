@@ -18,7 +18,7 @@ dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
 def getDailyData(stock="", date=""):
     if stock[0] == "2" or stock[0] == "9":
         print "Pass Stock"
-        pass
+        return True
     else:
         if  bool(stock) == False:
             return{'errcode':-1,'msg':'need stockCode'}
@@ -32,16 +32,19 @@ def getDailyData(stock="", date=""):
 
                 if size >30000 :
                     print(stock+" Pass")
+                    return True
                 else:
                     data = ts.get_today_ticks(stock)
                     data.to_json(jsonFile, orient='records', force_ascii =False)
                     print(stock)
                     print(date)
+                    return True
             else:
                 data = ts.get_today_ticks(stock)
                 data.to_json(jsonFile, orient='records', force_ascii =False)
                 print(stock)
                 print(date)
+                return True
 
         elif bool(date) & bool(stock):
             #按日期获取
@@ -56,19 +59,22 @@ def getDailyData(stock="", date=""):
 
                 if size >20000 :
                     print(stock+" Pass")
+                    return True
                 else:
                     data = ts.get_tick_data(stock, date=date)
                     data.to_json(jsonFile, orient='records', force_ascii =False)
                     print(stock)
                     print(date)
+                    return True
             else:
                 data = ts.get_tick_data(stock, date=date)
                 data.to_json(jsonFile, orient='records', force_ascii =False)
                 print(stock)
                 print(date)
+                return True
 
 
-#getDailyData("600226","2016-11-25")
+getDailyData("002732")
 
 
 ##获取当日交易数据

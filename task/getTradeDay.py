@@ -5,24 +5,20 @@
 import time,datetime
 
 def get_week_day(dateStr):
-    try:
-        time.strptime(dateStr, "%Y-%m-%d")
-        return True
-    except:
+    if bool(dateStr):
+        date = datetime.datetime.strptime(dateStr, "%Y-%m-%d").date()
+        week_day_dict = {
+            0: True,
+            1: True,
+            2: True,
+            3: True,
+            4: True,
+            5: False,
+            6: False,
+        }
+        day = date.weekday()
+        return week_day_dict[day]
+    else:
         return False
 
-    date = datetime.datetime(dateStr)
-    week_day_dict = {
-        0 : '星期一',
-        1 : '星期二',
-        2 : '星期三',
-        3 : '星期四',
-        4 : '星期五',
-        5 : '星期六',
-        6 : '星期天',
-    }
-    day = date.weekday()
-
-    #return week_day_dict[day]
-
-print(get_week_day('2016-11-24'))
+print(get_week_day('2016-11-27'))
