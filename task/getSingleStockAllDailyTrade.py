@@ -10,13 +10,12 @@ from getDailyInfo import getDailyData
 ##获取单一票在发行期内的全部日交易数据
 
 endDate = datetime.datetime.now().strftime("%Y-%m-%d") #以当天为截止日期
+basicFile = config.listsRootPath + '\\stockBasic.json'
+basicDate = readFile(basicFile)  # timeToMarket 上市日期
 
 def getSingleStockDate(stock=""):
     if bool(stock):
         ##获取基本数据
-        basicFile = config.listsRootPath+'\\stockBasic.json'
-        basicDate = readFile(basicFile) # timeToMarket 上市日期
-
         if basicDate['errcode']==0:
             lists = basicDate['data']
             name = lists['name']
@@ -64,6 +63,21 @@ def getSingleStockDailyList(stock=""):
 
     else:
         print "获取的时间不对"
-getSingleStockDailyList("601069")
 
+
+###循环code
+def getCodeCircle():
+    if basicDate['errcode'] == 0:
+        lists = basicDate['data']
+        name = lists['name']
+        for k in name:
+            #print k
+            ###循环code时得先判断对应的文件夹在不在,否则没法写入文件
+            ## is dir ???
+            getSingleStockDailyList(k)
+
+
+#getSingleStockDailyList("601669")
+
+getCodeCircle()
 #601069 603779在basic中没记录

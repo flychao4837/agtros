@@ -8,8 +8,8 @@ from readJsonFile import readFile
 from getDailyInfo import getDailyData
 
 def getAllStockList():
-    ##获取所有列表 （代码、名称、行业）
-    #data = ts.get_industry_classified()
+    ##获取所有列表 （代码、名称、行业） code不全
+    data = ts.get_industry_classified()
 
     ##获取格式化的日期字符串
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -27,7 +27,7 @@ def getAllStockList():
     ##写json文件方式一
     #jsonp = data.to_json(jsonFile, orient='records', force_ascii =False)
 
-    #data.to_json( jsonFile ,orient='records', force_ascii =False)
+    data.to_json( jsonFile ,orient='records', force_ascii =False)
 
     ##写json文件方式二
     #jsonp = data.to_json(）
@@ -66,7 +66,7 @@ def getAllStockList():
                     ##单个扫描方式
                     #getDailyData(listitem['code'])
 
-                    getDailyData(listitem['code'],'2016-11-25')
+                    getDailyData(listitem['code'],'2016-11-29')
                     ##用并发操作去扫描，单个扫描太慢
             else:
                 print 'error code'
