@@ -22,6 +22,13 @@ def getDailyData(stock="", date=""):
     else:
         if  bool(stock) == False:
             return{'errcode':-1,'msg':'need stockCode'}
+        else:
+            jsonDir = config.dataRootDailyTrade + "\\" + stock
+            if os.path.isdir(jsonDir):
+                pass
+            else:
+                os.mkdir(jsonDir)
+
 
         if bool(date) == False & bool(stock):
             #不带日期的话就检索今天的数据
@@ -30,7 +37,7 @@ def getDailyData(stock="", date=""):
                 size = os.path.getsize(jsonFile)
                 #print 'There are %f K' % (size / 1024.0)
 
-                if size >30000 :
+                if size >60000 :
                     print(stock+" Pass")
                     return True
                 else:
@@ -51,6 +58,7 @@ def getDailyData(stock="", date=""):
             isWorkDay = get_week_day(date)
             if isWorkDay:
                 jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + date + ".json"
+
 
                 ### 判断该日期下的文件是否大于100KB 是默认历史数据已获取，反正重新获取
                 if os.path.isfile(jsonFile):

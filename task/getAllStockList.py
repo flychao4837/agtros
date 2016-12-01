@@ -66,7 +66,7 @@ def getAllStockList():
                     ##单个扫描方式
                     #getDailyData(listitem['code'])
 
-                    getDailyData(listitem['code'],'2016-11-29')
+                    getDailyData(listitem['code'],'2016-11-30')
                     ##用并发操作去扫描，单个扫描太慢
             else:
                 print 'error code'

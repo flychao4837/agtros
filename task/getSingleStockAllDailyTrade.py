@@ -76,8 +76,6 @@ def getCodeCircle():
             ## is dir ???
             getSingleStockDailyList(k)
 
-
-#getSingleStockDailyList("601669")
-
-getCodeCircle()
+getSingleStockDailyList("000002") ##执行到那里
+#getCodeCircle()
 #601069 603779在basic中没记录
