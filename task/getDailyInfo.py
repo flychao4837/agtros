@@ -49,8 +49,7 @@ def getDailyData(stock="", date=""):
             else:
                 data = ts.get_today_ticks(stock)
                 data.to_json(jsonFile, orient='records', force_ascii =False)
-                print(stock)
-                print(date)
+
                 return True
 
         elif bool(date) & bool(stock):

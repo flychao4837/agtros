@@ -2,6 +2,7 @@
 # coding=UTF-8
 import datetime as datetime
 import os as os
+import time as time
 import tushare as ts
 import config as config
 from readJsonFile import readFile
@@ -69,15 +70,48 @@ def getSingleStockDailyList(stock=""):
 
 ###循环code
 def getCodeCircle():
+    ##记录已扫描的股票，下次跳过这些
+    if scanConfigDate['errcode'] == 0:
+        scanData = scanConfigDate['data']
+        scanData['date'] = endDate
+
     if basicDate['errcode'] == 0:
         lists = basicDate['data']
         name = lists['name']
-        for k in name:
-            #print k
-            ###循环code时得先判断对应的文件夹在不在,否则没法写入文件
-            ## is dir ???
-            getSingleStockDailyList(k)
+        #D盘工程用于烧苗已添加的代码
 
-getSingleStockDailyList("000002") ##执行到那里
+        for k in name:
+            try:
+                isStockScan = scanData['lastScanStock'].index(k)
+            except Exception, e:
+                isStockScan = False
+
+            if bool(isStockScan):
+                getSingleStockDailyList(k)
+            else:
+                pass
+
+
+#getSingleStockDailyList("000004") ##执行到那里
+
+def asynDetect():
+    counter = 1
+    try:
+        getCodeCircle()
+
+    except Exception, ex:
+        ###这里应该捕获 URIError，IOError
+        counter +=1
+        if counter <5:
+            time.sleep(180)
+            asynDetect()
+        else:
+            print "exit"
+            exit(1)
+
+#getSingleStockDailyList("000004") ##执行到那里
 #getCodeCircle()
-#601069 603779在basic中没记录
+
+###捕捉错误，多由网络中断引起，延时后重复多次
+asynDetect()
+
