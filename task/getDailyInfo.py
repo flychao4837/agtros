@@ -21,7 +21,7 @@ def getDailyData(stock="", date=""):
         return True
     else:
         if  bool(stock) == False:
-            return{'errcode':-1,'msg':'need stockCode'}
+            return{'errcode':-1,'errmsg':'need stockCode'}
         else:
             jsonDir = config.dataRootDailyTrade + "\\" + stock
             if os.path.isdir(jsonDir):
@@ -83,7 +83,9 @@ def getDailyData(stock="", date=""):
             else:
                 print ("Weekend Pass")
 
-#getDailyData("002732")
+
+if __name__ == '__main__':
+    getDailyData("002732")
 
 
 ##获取当日交易数据

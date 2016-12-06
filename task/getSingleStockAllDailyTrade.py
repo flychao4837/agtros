@@ -78,6 +78,7 @@ def getCodeCircle():
             ## is dir ???
             getSingleStockDailyList(k)
 
-getSingleStockDailyList("000002") ##执行到那里
-#getCodeCircle()
-#601069 603779在basic中没记录
+
+if __name__ == '__main__':
+    #getSingleStockDailyList("000002") ##执行到那里
+    getCodeCircle()
