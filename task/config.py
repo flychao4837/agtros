@@ -70,4 +70,5 @@ def creatRootDirectories():
         os.mkdir(dataRootDailyTotal)
 
 
-creatRootDirectories()
+if __name__ == '__main__':
+    creatRootDirectories()

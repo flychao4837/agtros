@@ -73,4 +73,6 @@ def getAllStockList():
     else: #读取文件出错
         print tmpDate['errmsg']
 
-getAllStockList()
+
+if __name__ == '__main__':
+    getAllStockList()

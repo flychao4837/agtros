@@ -4,7 +4,8 @@
 
 import os as os
 import json as json
-import config
+import config as config
+from config import creatRootDirectories
 
 def writeFile(inputfile,data):
     if os.path.isfile(inputfile):
@@ -19,7 +20,7 @@ def writeFile(inputfile,data):
         return{'errcode':0,"data":''}
 
     else:
-        confg.creatRootDirectories()
+        creatRootDirectories()
         fileIn = open(inputfile, 'w+')
         outStr = json.dumps(data, ensure_ascii=False)  # 处理完之后重新转为Json格式
         fileIn.write(outStr)
@@ -27,6 +28,5 @@ def writeFile(inputfile,data):
         return {'errcode': 0, "data": ''}
 
 
-
-
-# readFile(config.dataRootPath+'\\2016-11-07.json')
+if __name__ == '__main__':
+    readFile(config.dataRootPath+'\\2016-11-07.json')
