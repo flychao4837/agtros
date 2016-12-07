@@ -91,10 +91,6 @@ def getCodeCircle():
             else:
                 pass
 
-
-#getSingleStockDailyList("000004") ##执行到那里
-
-<<<<<<< HEAD
 def asynDetect():
     counter = 1
     try:
@@ -116,9 +112,8 @@ def asynDetect():
 ###捕捉错误，多由网络中断引起，延时后重复多次
 asynDetect()
 
-=======
+
 
 if __name__ == '__main__':
     #getSingleStockDailyList("000002") ##执行到那里
     getCodeCircle()
->>>>>>> 15d72b7635683dcfc548676d102380f93f2775db
