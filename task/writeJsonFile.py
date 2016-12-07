@@ -29,4 +29,4 @@ def writeFile(inputfile,data):
 
 
 if __name__ == '__main__':
-    readFile(config.dataRootPath+'\\2016-11-07.json')
+    writeFile(config.dataRootPath+'\\2016-11-07.json')
