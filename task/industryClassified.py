@@ -11,8 +11,9 @@ from writeJsonFile import writeFile
 def stockIndustryClassified():
     jsonFile = config.listsRootPath + "\\stockIndustryClassified.json"
     data = ts.get_industry_classified()
-    data.to_json(jsonFile, orient='records', force_ascii =False)
 
+    #data.to_json(jsonFile, orient='records', force_ascii =False)
+    writeFile(jsonFile, data, 'records', False)
 
 if __name__ == '__main__':
     stockIndustryClassified()
