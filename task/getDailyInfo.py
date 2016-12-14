@@ -80,7 +80,8 @@ def getDailyData(stock="", date=""):
                     print(date)
                     return True
             else:
-                print ("Weekend Pass")
+                #print ("Weekend Pass")
+                pass
 
 
 if __name__ == '__main__':
