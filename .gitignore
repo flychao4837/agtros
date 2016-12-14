@@ -54,3 +54,4 @@ data/*
 .idea/
 task/getDailyInfo.pyc
 task/writeJsonFile.pyc
+*.pyc
