@@ -13,7 +13,8 @@ def getAllStockList():
 
     ##获取格式化的日期字符串
     dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
-    jsonFile = config.listsRootPath + '\\' + dateStr + '.json'
+    jsonFile = os.path.join(config.listsRootPath, dateStr + '.json')
+    print jsonFile
 
             ## to_json 参数配置 在tushare中 （file,datatype）,datatype可用的格式
             #split dict like {index -> [index], columns -> [columns], data -> [values]}
@@ -27,7 +28,7 @@ def getAllStockList():
     ##写json文件方式一
     #jsonp = data.to_json(jsonFile, orient='records', force_ascii =False)
 
-    data.to_json( jsonFile ,orient='records', force_ascii =False)
+    data.to_json(jsonFile, orient='records', force_ascii=False)
 
     ##写json文件方式二
     #jsonp = data.to_json(）

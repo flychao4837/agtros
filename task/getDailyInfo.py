@@ -9,7 +9,7 @@ import config as config
 from readJsonFile import readFile
 from writeJsonFile import writeFile
 from getTradeDay import get_week_day
-fileName = config.configRootPath+'\scanData.json'
+fileName = os.path.join(config.configRootPath, 'scanData.json')
 dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
 
 #scanData = readFile(fileName)
@@ -23,7 +23,7 @@ def getDailyData(stock="", date=""):
         if  bool(stock) == False:
             return{'errcode':-1,'errmsg':'need stockCode'}
         else:
-            jsonDir = config.dataRootDailyTrade + "\\" + stock
+            jsonDir = os.path.join(config.dataRootDailyTrade, stock)
             if os.path.isdir(jsonDir):
                 pass
             else:
@@ -32,7 +32,8 @@ def getDailyData(stock="", date=""):
 
         if bool(date) == False & bool(stock):
             #不带日期的话就检索今天的数据
-            jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + dateStr + ".json"
+            jsonFile = os.path.join(config.dataRootDailyTrade, stock, dateStr + ".json")
+
             if os.path.isfile(jsonFile):
                 size = os.path.getsize(jsonFile)
                 #print 'There are %f K' % (size / 1024.0)
@@ -56,8 +57,7 @@ def getDailyData(stock="", date=""):
             #按日期获取
             isWorkDay = get_week_day(date)
             if isWorkDay:
-                jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + date + ".json"
-
+                jsonFile = os.path.join(config.dataRootDailyTrade, stock, date + ".json")
 
                 ### 判断该日期下的文件是否大于100KB 是默认历史数据已获取，反正重新获取
                 if os.path.isfile(jsonFile):

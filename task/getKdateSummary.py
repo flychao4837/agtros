@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding=UTF-8
 #获取每日开盘、收盘汇总信息，便于汇总5日、10日线，分析各种指标
+import os
 import tushare as ts
 import datetime as datetime
 import config as config
@@ -11,9 +12,9 @@ from getTradeDay import get_week_day
 
 
 endDate = datetime.datetime.now().strftime("%Y-%m-%d") #以当天为截止日期
-basicFile = config.listsRootPath + '\\stockBasic.json'
+basicFile = os.path.join(config.listsRootPath, 'stockBasic.json')
 basicDate = readFile(basicFile)  # timeToMarket 上市日期
-scanFile = config.configRootPath+'\\scanData.json'
+scanFile = os.path.join(config.configRootPath, 'scanData.json')
 scanConfigDate = readFile(scanFile)
 
 def getTradeStock(stock=""):
@@ -37,7 +38,7 @@ def getTradeStock(stock=""):
 
 def getTradeSummary(stock=""):
     if bool(stock):
-        jsonFile = config.dataRootDailyTotal + "\\" + stock + ".json"
+        jsonFile = os.path.join(config.dataRootDailyTotal, stock + ".json")
         data = ts.get_hist_data(stock)
         data.to_json(jsonFile, orient='index', force_ascii=False)
     else:

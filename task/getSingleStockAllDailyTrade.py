@@ -11,9 +11,9 @@ from writeJsonFile import writeFile
 ##获取单一票在发行期内的全部日交易数据
 
 endDate = datetime.datetime.now().strftime("%Y-%m-%d") #以当天为截止日期
-basicFile = config.listsRootPath + '\\stockBasic.json'
+basicFile = os.path.join(config.listsRootPath, 'stockBasic.json')
 basicDate = readFile(basicFile)  # timeToMarket 上市日期
-scanFile = config.configRootPath+'\\scanData.json'
+scanFile = os.path.join(config.configRootPath, 'scanData.json')
 scanConfigDate = readFile(scanFile)
 
 def getSingleStockDate(stock=""):

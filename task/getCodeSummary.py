@@ -20,9 +20,9 @@ def getCode(self):
 ##合并列表、并生成最终报表
 def mergeCodeList():
     endDate = datetime.datetime.now().strftime("%Y-%m-%d")  # 以当天为截止日期
-    basicFile = config.listsRootPath + '\\stockBasic.json'
+    basicFile = os.path.join(config.listsRootPath, 'stockBasic.json')
     basicDate = readFile(basicFile)  # timeToMarket 上市日期
-    indusrtyFile = config.listsRootPath + '\\stockIndustryClassified.json'
+    indusrtyFile = os.path.join(config.listsRootPath, 'stockIndustryClassified.json')
     indusrtyDate = readFile(indusrtyFile)
     if basicDate['errcode'] == 0 and indusrtyDate['errcode'] == 0 :
         mergeDate=dict();

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=UTF-8
-
+import os
 import config as config
 import tushare as ts
 from writeJsonFile import writeFile
@@ -9,7 +9,7 @@ from writeJsonFile import writeFile
 
 
 def stockIndustryClassified():
-    jsonFile = config.listsRootPath + "\\stockIndustryClassified.json"
+    jsonFile = os.path.join(config.listsRootPath, "stockIndustryClassified.json")
     data = ts.get_industry_classified()
 
     #data.to_json(jsonFile, orient='records', force_ascii =False)

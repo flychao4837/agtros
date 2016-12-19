@@ -25,12 +25,13 @@
     # npr,净利润率(%)
     # holders,股东人数
 
+import os
 import config as config
 import tushare as ts
 from writeJsonFile import writeFile
 
 def stockBasics():
-    jsonFile = config.listsRootPath + "\\stockBasic.json"
+    jsonFile = os.path.join(config.listsRootPath, "stockBasic.json")
     data = ts.get_stock_basics()
     data.to_json(jsonFile, orient='index', force_ascii =False)
 
