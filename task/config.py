@@ -25,9 +25,13 @@ dataRootDailyInfo = os.path.join(dataRootPath, 'dailyInfo')
 dataRootDailyNews = os.path.join(dataRootPath, 'dailyNews')
 
 ####常用扫描文件
-basicFile = os.path.join(config.listsRootPath, 'stockBasic.json')
-scanFile = os.path.join(config.configRootPath, 'scanData.json')
-industryFile = os.path.join(config.listsRootPath, "stockIndustryClassified.json")
+basicFile = os.path.join(listsRootPath, 'stockBasic.json')
+scanFile = os.path.join(configRootPath, 'scanData.json')
+industryFile = os.path.join(listsRootPath, "stockIndustryClassified.json")
+
+###手动指定存放的磁盘位置
+##syndir = "d://download/test"
+
 #创建文件根目录
 def creatRootDirectories():
     if os.path.isdir(configRootPath):

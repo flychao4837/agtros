@@ -9,11 +9,8 @@ import config as config
 from readJsonFile import readFile
 from writeJsonFile import writeFile
 from getTradeDay import get_week_day
-fileName = os.path.join(config.configRootPath, 'scanData.json')
+
 dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
-
-#scanData = readFile(fileName)
-
 
 def getDailyData(stock="", date=""):
     if stock[0] == "2" or stock[0] == "9":

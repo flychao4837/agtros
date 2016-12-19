@@ -60,7 +60,7 @@ def getSingleStockDailyList(stock=""):
                 addDate = startTime + datetime.timedelta(days=num)
                 scanDate = addDate.strftime("%Y-%m-%d")
                 #print scanDate
-                result = getDailyData(stock=stock, date=scanDate)
+                getDailyData(stock=stock, date=scanDate)
         else:
             pass
 

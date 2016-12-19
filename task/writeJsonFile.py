@@ -2,10 +2,10 @@
 # coding=UTF-8
 ##写、更改json文件
 
-import os as os
-import json as json
+import os
+import json
 import types
-import config as config
+import config
 from config import creatRootDirectories
 
 ##TODO 1:直接将dict或json格式的数据写入文件 2：讲pandas格式的数据用pandas的to_json方法转换格式写入文件
