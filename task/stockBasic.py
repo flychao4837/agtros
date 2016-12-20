@@ -25,16 +25,15 @@
     # npr,净利润率(%)
     # holders,股东人数
 
-import datetime as datetime
-import os as os
+import os
 import config as config
 import tushare as ts
-from readJsonFile import readFile
-from getDailyInfo import getDailyData
+from writeJsonFile import writeFile
 
+def stockBasics():
+    jsonFile = os.path.join(config.listsRootPath, "stockBasic.json")
+    data = ts.get_stock_basics()
+    data.to_json(jsonFile, orient='index', force_ascii =False)
 
-jsonFile = config.listsRootPath + "\stockBasic.json"
-
-data = ts.get_stock_basics()
-#print data
-data.to_json(jsonFile, force_ascii =False)
+if __name__ == '__main__':
+    stockBasics()

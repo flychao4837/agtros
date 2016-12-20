@@ -40,5 +40,5 @@ def readFile(inputfile):
         return {'errcode' : -10000 , 'errmsg' : "Cann't find JSON file"+inputfile,'data':''}
 
 
-
-#readFile(config.listsRootPath+'\\stockBasic-bak.json')
+if __name__ == '__main__':
+    readFile(config.listsRootPath+'\\stockBasic-bak.json')

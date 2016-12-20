@@ -21,4 +21,5 @@ def get_week_day(dateStr):
     else:
         return False
 
-#print(get_week_day('2016-11-28'))
+if __name__ == '__main__':
+    print(get_week_day('2016-11-28'))

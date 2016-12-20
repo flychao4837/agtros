@@ -9,11 +9,8 @@ import config as config
 from readJsonFile import readFile
 from writeJsonFile import writeFile
 from getTradeDay import get_week_day
-fileName = config.configRootPath+'\scanData.json'
+
 dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
-
-#scanData = readFile(fileName)
-
 
 def getDailyData(stock="", date=""):
     if stock[0] == "2" or stock[0] == "9":
@@ -21,9 +18,9 @@ def getDailyData(stock="", date=""):
         return True
     else:
         if  bool(stock) == False:
-            return{'errcode':-1,'msg':'need stockCode'}
+            return{'errcode':-1,'errmsg':'need stockCode'}
         else:
-            jsonDir = config.dataRootDailyTrade + "\\" + stock
+            jsonDir = os.path.join(config.dataRootDailyTrade, stock)
             if os.path.isdir(jsonDir):
                 pass
             else:
@@ -32,7 +29,7 @@ def getDailyData(stock="", date=""):
 
         if bool(date) == False & bool(stock):
             #不带日期的话就检索今天的数据
-            jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + dateStr + ".json"
+            jsonFile = os.path.join(config.dataRootDailyTrade, stock, dateStr + ".json")
             if os.path.isfile(jsonFile):
                 size = os.path.getsize(jsonFile)
                 #print 'There are %f K' % (size / 1024.0)
@@ -47,25 +44,24 @@ def getDailyData(stock="", date=""):
                     print(date)
                     return True
             else:
+                print "--"+stock
                 data = ts.get_today_ticks(stock)
                 data.to_json(jsonFile, orient='records', force_ascii =False)
-                print(stock)
-                print(date)
+
                 return True
 
         elif bool(date) & bool(stock):
             #按日期获取
             isWorkDay = get_week_day(date)
             if isWorkDay:
-                jsonFile = config.dataRootDailyTrade + "\\" + stock + "\\" + date + ".json"
-
+                jsonFile = os.path.join(config.dataRootDailyTrade, stock, date + ".json")
 
                 ### 判断该日期下的文件是否大于100KB 是默认历史数据已获取，反正重新获取
                 if os.path.isfile(jsonFile):
                     size = os.path.getsize(jsonFile)
                     #print 'There are %f K' % (size / 1024.0)
 
-                    if size >20000 :
+                    if size >60000 :
                         print(stock+" Pass")
                         return True
                     else:
@@ -82,8 +78,11 @@ def getDailyData(stock="", date=""):
                     return True
             else:
                 print ("Weekend Pass")
+                pass
 
-#getDailyData("002732")
+
+if __name__ == '__main__':
+    getDailyData("002732", "2016-12-03")
 
 
 ##获取当日交易数据
