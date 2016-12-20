@@ -23,6 +23,8 @@ dataRootDailyTotal = os.path.join(dataRootPath, 'dailyTotal')
 dataRootDailyTrade = os.path.join(dataRootPath, 'dailyTrade')
 dataRootDailyInfo = os.path.join(dataRootPath, 'dailyInfo')
 dataRootDailyNews = os.path.join(dataRootPath, 'dailyNews')
+dataRootKData = os.path.join(dataRootPath, 'KData')
+dataRoottenShareholder = os.path.join(dataRootPath, 'tenShareholder')
 
 ####常用扫描文件
 basicFile = os.path.join(listsRootPath, 'stockBasic.json')
@@ -79,6 +81,15 @@ def creatRootDirectories():
     else:
         os.mkdir(dataRootDailyTotal)
 
+    if os.path.isdir(dataRootKData):
+        pass
+    else:
+        os.mkdir(dataRootKData)
+
+    if os.path.isdir(dataRoottenShareholder):
+        pass
+    else:
+        os.mkdir(dataRoottenShareholder)
 
 if __name__ == '__main__':
     creatRootDirectories()

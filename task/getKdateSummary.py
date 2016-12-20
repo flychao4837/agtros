@@ -28,7 +28,7 @@ def getTradeStock(stock=""):
                 dateStr = str(lists[k]['timeToMarket'])
                 startDate = dateStr[:4] + "-" + dateStr[4:6] + "-" + dateStr[6:]
 
-                kdatedir = os.path.join(config.dataRootDailyTotal, k)
+                kdatedir = os.path.join(config.dataRootKData, k)
                 if os.path.isdir(kdatedir):
                     pass
                 else:
@@ -52,7 +52,7 @@ def getTradeSummary(stock="", start="", end=""):
     if bool(stock):
         print start
         print end
-        jsonFile = os.path.join(config.dataRootDailyTotal, stock, "daySummary.json")
+        jsonFile = os.path.join(config.dataRootKData, stock, "daySummary.json")
         data = ts.get_hist_data(stock, start=start, end=end)
         if str(type(data)) =="<class 'pandas.core.frame.DataFrame'>":
             data.to_json(jsonFile, orient='index', force_ascii=False)
