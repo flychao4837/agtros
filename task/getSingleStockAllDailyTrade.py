@@ -21,13 +21,11 @@ def getSingleStockDate(stock=""):
         ##获取基本数据
         if basicDate['errcode']==0:
             lists = basicDate['data']
-            name = lists['name']
-            timeToMarket = lists['timeToMarket']
-            if  bool(name) and bool(timeToMarket):
-                for k in name:
+            if bool(lists):
+                for k in lists:
                     if k ==stock:
-                        startBasicDate = timeToMarket[k]
-                        return str(startBasicDate)
+                        startBasicDate = str(lists[k]['timeToMarket'])
+                        return startBasicDate
                         break
                         #找到code就退出循环
             else:
