@@ -1,0 +1,113 @@
+
+## to_json 参数配置 在tushare中 （file,datatype）,datatype可用的格式
+#split dict like {index -> [index], columns -> [columns], data -> [values]}
+#records list like[{column -> value}, ..., {column -> value}]
+#index dict like {index -> {column -> value}}
+#columns dict like {column -> {index -> value}}
+# values just the values array
+
+# to_json  , force_ascii 设置中文ascii编码 默认True 若直接看 设为False
+
+##写json文件方式一
+
+data.to_json(jsonFile, orient='records', force_ascii=False)
+
+##写json文件方式二
+#jsonp = data.to_json(）
+# if os.path.isfile(jsonFile):
+#     fp = open(jsonFile, 'w')
+#     fp.write(jsonp)
+#     fp.close()
+# else:
+#     fp = open(jsonFile, 'w')
+#     fp.write(jsonp)
+#     fp.close()
+
+-----------------------------------
+stockBasic.json数据格式
+{
+    "603098": {
+		"name": "N森特",
+		"industry": "装修装饰",
+		"area": "北京",
+		"pe": 28.31,
+		"outstanding": 0.63,
+		"totals": 4.0,
+		"totalAssets": 174422.55,
+		"liquidAssets": 141509.69,
+		"fixedAssets": 0.0,
+		"reserved": 0.0,
+		"reservedPerShare": 0.0,
+		"esp": 0.35,
+		"bvps": 2.99,
+		"pb": 4.42,
+		"timeToMarket": 20161216,
+		"undp": 0.0,
+		"perundp": 0.0,
+		"rev": 0.0,
+		"profit": 0.0,
+		"gpr": 0.0,
+		"npr": 13.43,
+		"holders": 54115
+	},
+}
+
+------------------
+获取K线数据
+#ts.get_hist_data('600848',start='2015-01-05',end='2015-01-09')
+    #ts.get_hist_data('600848', ktype='W')  # 获取周k线数据
+    #ts.get_hist_data('600848', ktype='M')  # 获取月k线数据
+    #ts.get_hist_data('600848', ktype='5')  # 获取5分钟k线数据
+    #ts.get_hist_data('600848', ktype='15')  # 获取15分钟k线数据
+    #ts.get_hist_data('600848', ktype='30')  # 获取30分钟k线数据
+    #ts.get_hist_data('600848', ktype='60')  # 获取60分钟k线数据
+    #ts.get_hist_data('sh'）  # 获取上证指数k线数据，其它参数与个股一致，下同
+    #ts.get_hist_data('sz'）  # 获取深圳成指k线数据
+    #ts.get_hist_data('hs300'）  # 获取沪深300指数k线数据
+    #ts.get_hist_data('sz50'）  # 获取上证50指数k线数据
+    #ts.get_hist_data('zxb'）  # 获取中小板指数k线数据
+    #ts.get_hist_data('cyb'）  # 获取创业板指数k线数据
+
+    #     本接口还提供大盘指数的全部历史数据，调用时，请务必设定index参数为True, 由于大盘指数不存在复权的问题，故可以忽略autype参数。
+    #
+    #     ::
+    #
+    #     ts.get_h_data('002337')  # 前复权
+    #     ts.get_h_data('002337', autype='hfq')  # 后复权
+    #     ts.get_h_data('002337', autype=None)  # 不复权
+    #     ts.get_h_data('002337', start='2015-01-01', end='2015-03-16')  # 两个日期之间的前复权数据
+    #
+    #     ts.get_h_data('399106', index=True)  # 深圳综合指数
+    #
+    #
+    # 参数说明：
+    #
+    # - ** code **:string, 股票代码
+    # e.g.
+    # 600848
+    # - ** start **:string, 开始日期
+    # format：YYYY - MM - DD
+    # 为空时取当前日期
+    # - ** end **:string, 结束日期
+    # format：YYYY - MM - DD
+    # 为空时取去年今日
+    # - ** autype **:string, 复权类型，qfq - 前复权
+    # hfq - 后复权
+    # None - 不复权，默认为qfq
+    # - ** index **:Boolean，是否是大盘指数，默认为False
+    # - ** retry\_count **: int, 默认3, 如遇网络等问题重复执行的次数
+    # - ** pause **: int, 默认
+    # 0, 重复请求数据过程中暂停的秒数，防止请求间隔时间太短出现的问题
+    #
+    # 返回值说明：
+    #
+    # - ** date **: 交易日期(index)
+    # - ** open **: 开盘价
+    # - ** high **: 最高价
+    # - ** close **: 收盘价
+    # - ** low **: 最低价
+    # - ** volume **: 成交量
+    # - ** amount **: 成交金额
+
+-----------------------
+##获取十大股东
