@@ -9,7 +9,7 @@ import config as config
 from readJsonFile import readFile
 from getDailyInfo import getDailyData
 from writeJsonFile import writeFile
-from getTradeDay import get_week_day
+from getTradeDay import isTradeDay
 
 
 endDate = datetime.datetime.now().strftime("%Y-%m-%d") #以当天为截止日期

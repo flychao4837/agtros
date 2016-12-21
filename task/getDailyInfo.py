@@ -8,7 +8,7 @@ import os as os
 import config as config
 from readJsonFile import readFile
 from writeJsonFile import writeFile
-from getTradeDay import get_week_day
+from getTradeDay import isTradeDay
 
 dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
 
@@ -52,7 +52,7 @@ def getDailyData(stock="", date=""):
 
         elif bool(date) & bool(stock):
             #按日期获取
-            isWorkDay = get_week_day(date)
+            isWorkDay = isTradeDay(date)
             if isWorkDay:
                 jsonFile = os.path.join(config.dataRootDailyTrade, stock, date + ".json")
 
@@ -82,7 +82,7 @@ def getDailyData(stock="", date=""):
 
 
 if __name__ == '__main__':
-    getDailyData("002732", "2016-12-03")
+    getDailyData("002732", "2016-05-04")
 
 
 ##获取当日交易数据
