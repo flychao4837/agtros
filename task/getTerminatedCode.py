@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=UTF-8
-
+import os
 import tushare as ts
 import config as config
 from writeJsonFile import writeFile
