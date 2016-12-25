@@ -21,13 +21,11 @@ def getSingleStockDate(stock=""):
         ##获取基本数据
         if basicDate['errcode']==0:
             lists = basicDate['data']
-            name = lists['name']
-            timeToMarket = lists['timeToMarket']
-            if  bool(name) and bool(timeToMarket):
-                for k in name:
+            if  bool(lists) :
+                for k in lists:
                     if k ==stock:
-                        startBasicDate = timeToMarket[k]
-                        return str(startBasicDate)
+                        startBasicDate = str(lists[k]['timeToMarket'])
+                        return startBasicDate
                         break
                         #找到code就退出循环
             else:
@@ -40,9 +38,7 @@ def getSingleStockDate(stock=""):
 
 
 def getSingleStockDailyList(stock=""):
-
     dateStr = getSingleStockDate(stock)
-
     if bool(dateStr) and len(dateStr) == 8:
         startDate = dateStr[:4] + "-" + dateStr[4:6] + "-" + dateStr[6:]
         # str格式的时间转成datetime，便于时间操作、比较
@@ -75,9 +71,10 @@ def getSingleStockDailyList(stock=""):
             pass
 
     else:
-        print "获取的时间不对"
-        print stock
-        print "------------------"
+        pass
+        # print "获取的时间不对"
+        # print stock
+        # print "------------------"
 
 
 ###循环code
@@ -89,8 +86,7 @@ def getCodeCircle():
 
     if basicDate['errcode'] == 0:
         lists = basicDate['data']
-        name = lists['name']
-        for k in name:
+        for k in lists:
             getSingleStockDailyList(k)
             # try:
             #     isStockScan = scanData['lastScanStock'].index(k)
