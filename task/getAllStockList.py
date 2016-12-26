@@ -23,7 +23,7 @@ def getAllStockList(date=today):
                 print 'error code'
     else:
         #读取文件出错
-        print tmpDate['errmsg']
+        print basicDate['errmsg']
 
 if __name__ == '__main__':
     getAllStockList("2016-12-23")

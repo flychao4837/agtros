@@ -118,8 +118,8 @@ class SPIDER:
                 else:
                     os.mkdir(contdir)
 
-                filename = os.path.join(contdir, "htmlContent.txt");
-                url ="http://cuiqingcai.com/993.html"
+                filename = os.path.join(contdir, k+"htmlContent.txt");
+                url ="http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz"+k
                 try:
                     indexPage = self.getPage(url)
                     #contents = self.getContent(indexPage)
