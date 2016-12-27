@@ -14,12 +14,12 @@ from writeJsonFile import writeFile
 import urllib
 import urllib2
 import re
+from bs4 import BeautifulSoup
 
 basicFile = os.path.join(config.listsRootPath, 'stockBasic.json')
 basicDate = readFile(basicFile)
 scanFile = os.path.join(config.configRootPath, 'scanData.json')
 scanConfigDate = readFile(scanFile)
-
 
 
 # 页面爬虫类
@@ -83,19 +83,82 @@ class SPIDER:
                 return None
 
 
-    # 获取每一层楼的内容,传入页面内容
-    def getContent(self, page):
-        # 匹配所有楼层的内容
-        pattern = re.compile('<div id="post_content_.*?>(.*?)</div>', re.S)
-        items = re.findall(pattern, page)
-        contents = []
-        for item in items:
-            # 将文本进行去除标签处理，同时在前后加入换行符
-            content = "\n" + self.tool.replace(item) + "\n"
-            contents.append(content.encode('utf-8'))
-        return contents
+    # 获取页面内容
+    def getContent(self, file):
+        if os.path.isfile(file):
+            reload(sys)
+            sys.setdefaultencoding('utf-8')
 
-    def writeData(self, name=None,content=None):
+            soup = BeautifulSoup(open(file), 'lxml')
+            section = soup.select(".section")
+
+            if section[0]:
+                gdrs = section[0]
+                table = gdrs.select("table")
+                if table[0]:
+                    rows = table[0].select("tr")
+                    times = rows[0].select(".tips-dataL")
+                    numbers = rows[1].select(".tips-dataL") #股东人数
+                    pernumberchanges = rows[2].select(".tips-dataL") #股东人数变化
+                    pershares = rows[3].select(".tips-dataL") #人均流通持股
+                    persharechanges = rows[4].select(".tips-dataL") #人均流通股变化
+                    scr = rows[5].select(".tips-dataL") #筹码集中度 Stock Convergence Rate
+                    prices = rows[6].select(".tips-dataL") #股价
+                    perprice = rows[7].select(".tips-dataL") #人均持股金额
+                    tenshare = rows[8].select(".tips-dataL") #十大股东
+                    tencirshare = rows[9].select(".tips-dataL") #十大流通股东
+
+                    data = dict()
+                    data['gdrs'] = dict()
+
+                    for i in range(1, len(times)):
+                        idx = times[i].get_text().decode()
+                        data['gdrs'][idx] = dict()
+                        data['gdrs'][idx]['number'] = numbers[i].get_text().decode()
+                        data['gdrs'][idx]['numcg'] = pernumberchanges[i].get_text().decode()
+                        data['gdrs'][idx]['pershare'] = pershares[i].get_text().decode()
+                        data['gdrs'][idx]['sharecg'] = persharechanges[i].get_text().decode()
+                        data['gdrs'][idx]['scr'] = scr[i].get_text().decode()
+                        data['gdrs'][idx]['price'] = prices[i].get_text().decode()
+                        data['gdrs'][idx]['perprice'] = perprice[i].get_text().decode()
+
+                    for i in tenshare:
+                        t = i.get_text().decode()
+                        if t is not None and t !="--":
+                            data['tenshare'] = t
+                            break
+
+                    for i in tencirshare:
+                        t = i.get_text().decode()
+                        if t is not None and t !="--":
+                            data['tencirshare'] = t
+                            break
+
+                    jsonFile = os.path.join(self.pageroot, '002334')
+                    jsonFile = os.path.join(jsonFile, "gdrs.json")
+                    writeFile(jsonFile, data, 'records', False)
+
+            if section[1]:
+                sdltgd = section[1]
+
+            if section[2]:
+                sdgd = section[2]
+
+            if section[3]:
+                sdgdcgbd = section[3]
+
+            if section[4]:
+                jjcc = section[4]
+
+            if section[5]:
+                xsjj = section[5]
+
+        else:
+            print "error"
+            pass
+
+    ###抓取的页面先暂存，便于后期处理、查阅
+    def writeData(self, name=None, content=None):
         reload(sys)
         sys.setdefaultencoding('utf-8')
         if content is not None and name is not None:
@@ -107,28 +170,31 @@ class SPIDER:
             pass
 
     def start(self):
+        contdir = os.path.join(self.pageroot, '002334')
+        filename = os.path.join(contdir, "002334htmlContent.txt")
+        self.getContent(filename)
         #遍历目录
-        if basicDate['errcode'] == 0:
-            lists = basicDate['data']
-            for k in lists:
-                contdir = os.path.join(self.pageroot,k)
-                print contdir
-                if os.path.isdir(contdir):
-                    pass
-                else:
-                    os.mkdir(contdir)
-
-                filename = os.path.join(contdir, k+"htmlContent.txt");
-                url ="http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz"+k
-                try:
-                    indexPage = self.getPage(url)
-                    #contents = self.getContent(indexPage)
-                    self.writeData(filename,indexPage)
-                # 出现写入异常
-                except IOError, e:
-                    print "写入异常，原因" + e.message
-                finally:
-                    print "写入任务完成"
+        # if basicDate['errcode'] == 0:
+        #     lists = basicDate['data']
+        #     for k in lists:
+        #         contdir = os.path.join(self.pageroot, k)
+        #         print contdir
+        #         if os.path.isdir(contdir):
+        #             pass
+        #         else:
+        #             os.mkdir(contdir)
+        #
+        #         filename = os.path.join(contdir, k+"htmlContent.txt");
+        #         url ="http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz"+k
+        #         try:
+        #             indexPage = self.getPage(url)
+        #             self.writeData(filename, indexPage)
+        #         # 出现写入异常
+        #         except IOError, e:
+        #             print "写入异常，原因" + e.message
+        #         finally:
+        #             print "写入任务完成"
+        #             self.getContent(filename)
 
 bdtb = SPIDER()
 bdtb.start()
