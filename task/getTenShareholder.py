@@ -92,6 +92,7 @@ class SPIDER:
             soup = BeautifulSoup(open(file), 'lxml')
             section = soup.select(".section")
 
+            ##股东人数
             if section[0]:
                 gdrs = section[0]
                 table = gdrs.select("table")
@@ -138,6 +139,7 @@ class SPIDER:
                     jsonFile = os.path.join(jsonFile, "gdrs.json")
                     writeFile(jsonFile, data, 'records', False)
 
+            ##十大流通股东
             if section[1]:
                 sdltgd = section[1]
                 dateIndex = sdltgd.select(".tab li")
@@ -170,6 +172,7 @@ class SPIDER:
                     jsonFile = os.path.join(jsonFile, "sdltgd.json")
                     writeFile(jsonFile, data, 'records', False)
 
+            ##十大股东
             if section[2]:
                 sdgd = section[2]
                 dateIndex = sdgd.select(".tab li")
@@ -200,9 +203,11 @@ class SPIDER:
                     jsonFile = os.path.join(jsonFile, "sdgd.json")
                     writeFile(jsonFile, data, 'records', False)
 
+            ##十大股东持股变动
             if section[3]:
                 sdgdcgbd = section[3]
 
+            ##基金持仓
             if section[4]:
                 jjcc = section[4]
                 dateIndex = jjcc.select(".tab li")
@@ -237,8 +242,27 @@ class SPIDER:
                 jsonFile = os.path.join(jsonFile, "jjcc.json")
                 writeFile(jsonFile, data, 'records', False)
 
+            #限售解禁
             if section[5]:
                 xsjj = section[5]
+                trs = xsjj.select("tr")
+                data = dict()
+                data['xsjj'] = dict()
+                if len(trs) >1:
+                    for i in range(1, len(trs)):
+                        rows = trs[i].select('.tips-dataL')
+                        data['xsjj'][i] = dict()
+                        data['xsjj'][i]['time'] = rows[0].get_text().decode()
+                        data['xsjj'][i]['jjsl'] = rows[1].get_text().decode()
+                        data['xsjj'][i]['jjzgbl'] = rows[2].get_text().decode()
+                        data['xsjj'][i]['jjltbl'] = rows[3].get_text().decode()
+                        data['xsjj'][i]['type'] = rows[4].get_text().decode()
+                else:
+                    data['xsjj']['errmsg'] = "没有数据"
+
+                jsonFile = os.path.join(self.pageroot, '002334')
+                jsonFile = os.path.join(jsonFile, "xsjj.json")
+                writeFile(jsonFile, data, 'records', False)
 
         else:
             print "error"
