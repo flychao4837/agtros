@@ -140,15 +140,102 @@ class SPIDER:
 
             if section[1]:
                 sdltgd = section[1]
+                dateIndex = sdltgd.select(".tab li")
+                tables = sdltgd.select(".first table")
+                if len(dateIndex) == len(tables):
+                    data = dict()
+                    data['sdltgd'] = dict()
+                    for i in range(0, len(dateIndex)):
+                        idx = dateIndex[i].get_text().decode()
+                        data['sdltgd'][idx] = dict()
+
+                        table = tables[i]
+                        tr = table.select("tr")
+                        for t in range(1, len(tr)):
+
+                            tds = tr[t].select("td")
+                            data['sdltgd'][idx][t] = dict()
+                            rank = tr[t].select("th")[0].get_text()
+
+                            data['sdltgd'][idx][t]['rank'] = rank  #名称
+                            data['sdltgd'][idx][t]['name'] = tds[0].get_text().decode() #股东名称
+                            data['sdltgd'][idx][t]['gdxz'] = tds[1].get_text().decode() #股东性质
+                            data['sdltgd'][idx][t]['gflx'] = tds[2].get_text().decode() #股份类型
+                            data['sdltgd'][idx][t]['cgs'] = tds[3].get_text().decode()  #平均持股数
+                            data['sdltgd'][idx][t]['cgbl'] = tds[4].get_text().decode() #持股比例
+                            data['sdltgd'][idx][t]['zjgs'] = tds[5].get_text().decode() #增减股数
+                            data['sdltgd'][idx][t]['bdbl'] = tds[6].get_text().decode() #变动比率
+
+                    jsonFile = os.path.join(self.pageroot, '002334')
+                    jsonFile = os.path.join(jsonFile, "sdltgd.json")
+                    writeFile(jsonFile, data, 'records', False)
 
             if section[2]:
                 sdgd = section[2]
+                dateIndex = sdgd.select(".tab li")
+                tables = sdgd.select(".first table")
+                if len(dateIndex) == len(tables):
+                    data = dict()
+                    data['sdgd'] = dict()
+                    for i in range(0, len(dateIndex)):
+                        idx = dateIndex[i].get_text().decode()
+                        data['sdgd'][idx] = dict()
+
+                        table = tables[i]
+                        tr = table.select("tr")
+                        for t in range(1, len(tr)):
+                            tds = tr[t].select("td")
+                            data['sdgd'][idx][t] = dict()
+                            rank = tr[t].select("th")[0].get_text()
+
+                            data['sdgd'][idx][t]['rank'] = rank  # 排名
+                            data['sdgd'][idx][t]['name'] = tds[0].get_text().decode()  # 股东名称
+                            data['sdgd'][idx][t]['gflx'] = tds[1].get_text().decode()  # 股份类型
+                            data['sdgd'][idx][t]['cgs'] = tds[2].get_text().decode()  # 持股数
+                            data['sdgd'][idx][t]['cgbl'] = tds[3].get_text().decode()  # 占总股本持股比例
+                            data['sdgd'][idx][t]['zjgs'] = tds[4].get_text().decode()  # 增减股数
+                            data['sdgd'][idx][t]['bdbl'] = tds[5].get_text().decode()  # 变动比率
+
+                    jsonFile = os.path.join(self.pageroot, '002334')
+                    jsonFile = os.path.join(jsonFile, "sdgd.json")
+                    writeFile(jsonFile, data, 'records', False)
 
             if section[3]:
                 sdgdcgbd = section[3]
 
             if section[4]:
                 jjcc = section[4]
+                dateIndex = jjcc.select(".tab li")
+                tables = jjcc.select(".first table")
+                data = dict()
+                data['jjcc'] = dict()
+                if len(dateIndex) == len(tables):
+                    for i in range(0, len(dateIndex)):
+                        idx = dateIndex[i].get_text().decode()
+                        data['jjcc'][idx] = dict()
+
+                        table = tables[i]
+                        tr = table.select("tr")
+                        for t in range(1, len(tr)):
+                            tds = tr[t].select("td")
+                            data['jjcc'][idx][t] = dict()
+
+                            if len(tds) >6:
+                                data['jjcc'][idx][t]['rank'] = t  # 排名
+                                data['jjcc'][idx][t]['name'] = tds[1].get_text().decode()  # 基金名称
+                                data['jjcc'][idx][t]['cgs'] = tds[3].get_text().decode()  # 持股数
+                                data['jjcc'][idx][t]['cgsz'] = tds[4].get_text().decode()  # 持仓市值
+                                data['jjcc'][idx][t]['zgbl'] = tds[5].get_text().decode()  # 占总股本比
+                                data['jjcc'][idx][t]['ltbl'] = tds[6].get_text().decode()  # 占流通比
+                                data['jjcc'][idx][t]['jzbl'] = tds[7].get_text().decode()  # 占净值比
+                            else:
+                                pass
+                else:
+                    data['jjcc']['errmsg']="没有数据"
+
+                jsonFile = os.path.join(self.pageroot, '002334')
+                jsonFile = os.path.join(jsonFile, "jjcc.json")
+                writeFile(jsonFile, data, 'records', False)
 
             if section[5]:
                 xsjj = section[5]
