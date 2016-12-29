@@ -91,62 +91,70 @@ class SPIDER:
 
             soup = BeautifulSoup(open(filename), 'lxml')
             section = soup.select(".section")
+            gdrs = soup.select("#gdrs")
+            sdltgd = soup.select("#sdltgd")
+            sdgd = soup.select("#sdgd")
+            sdgdcgbd = soup.select("#sdgdcgbd")
+            jjcc = soup.select("#jjcc")
+            xsjj = soup.select("#xsjj")
+
             if stock is None:
                 print stock +" error"
                 return
 
             ##股东人数
-            if section[0]:
-                gdrs = section[0]
-                table = gdrs.select("table")
-                if table[0]:
-                    rows = table[0].select("tr")
-                    times = rows[0].select(".tips-dataL")
-                    numbers = rows[1].select(".tips-dataL") #股东人数
-                    pernumberchanges = rows[2].select(".tips-dataL") #股东人数变化
-                    pershares = rows[3].select(".tips-dataL") #人均流通持股
-                    persharechanges = rows[4].select(".tips-dataL") #人均流通股变化
-                    scr = rows[5].select(".tips-dataL") #筹码集中度 Stock Convergence Rate
-                    prices = rows[6].select(".tips-dataL") #股价
-                    perprice = rows[7].select(".tips-dataL") #人均持股金额
-                    tenshare = rows[8].select(".tips-dataL") #十大股东
-                    tencirshare = rows[9].select(".tips-dataL") #十大流通股东
+            if gdrs:
+                #gdrs = section[0]
+                table = gdrs[0].parent.select("table")
+                if len(table):
+                    if table[0]:
+                        rows = table[0].select("tr")
+                        times = rows[0].select(".tips-dataL")
+                        numbers = rows[1].select(".tips-dataL") #股东人数
+                        pernumberchanges = rows[2].select(".tips-dataL") #股东人数变化
+                        pershares = rows[3].select(".tips-dataL") #人均流通持股
+                        persharechanges = rows[4].select(".tips-dataL") #人均流通股变化
+                        scr = rows[5].select(".tips-dataL") #筹码集中度 Stock Convergence Rate
+                        prices = rows[6].select(".tips-dataL") #股价
+                        perprice = rows[7].select(".tips-dataL") #人均持股金额
+                        tenshare = rows[8].select(".tips-dataL") #十大股东
+                        tencirshare = rows[9].select(".tips-dataL") #十大流通股东
 
-                    data = dict()
-                    data['gdrs'] = dict()
+                        data = dict()
+                        data['gdrs'] = dict()
 
-                    for i in range(1, len(times)):
-                        idx = times[i].get_text().decode()
-                        data['gdrs'][idx] = dict()
-                        data['gdrs'][idx]['number'] = numbers[i].get_text().decode()
-                        data['gdrs'][idx]['numcg'] = pernumberchanges[i].get_text().decode()
-                        data['gdrs'][idx]['pershare'] = pershares[i].get_text().decode()
-                        data['gdrs'][idx]['sharecg'] = persharechanges[i].get_text().decode()
-                        data['gdrs'][idx]['scr'] = scr[i].get_text().decode()
-                        data['gdrs'][idx]['price'] = prices[i].get_text().decode()
-                        data['gdrs'][idx]['perprice'] = perprice[i].get_text().decode()
+                        for i in range(1, len(times)):
+                            idx = times[i].get_text().decode()
+                            data['gdrs'][idx] = dict()
+                            data['gdrs'][idx]['number'] = numbers[i].get_text().decode()
+                            data['gdrs'][idx]['numcg'] = pernumberchanges[i].get_text().decode()
+                            data['gdrs'][idx]['pershare'] = pershares[i].get_text().decode()
+                            data['gdrs'][idx]['sharecg'] = persharechanges[i].get_text().decode()
+                            data['gdrs'][idx]['scr'] = scr[i].get_text().decode()
+                            data['gdrs'][idx]['price'] = prices[i].get_text().decode()
+                            data['gdrs'][idx]['perprice'] = perprice[i].get_text().decode()
 
-                    for i in tenshare:
-                        t = i.get_text().decode()
-                        if t is not None and t !="--":
-                            data['tenshare'] = t
-                            break
+                        for i in tenshare:
+                            t = i.get_text().decode()
+                            if t is not None and t !="--":
+                                data['tenshare'] = t
+                                break
 
-                    for i in tencirshare:
-                        t = i.get_text().decode()
-                        if t is not None and t !="--":
-                            data['tencirshare'] = t
-                            break
+                        for i in tencirshare:
+                            t = i.get_text().decode()
+                            if t is not None and t !="--":
+                                data['tencirshare'] = t
+                                break
 
-                    jsonFile = os.path.join(self.pageroot, stock)
-                    jsonFile = os.path.join(jsonFile, "gdrs.json")
-                    writeFile(jsonFile, data, 'records', False)
+                        jsonFile = os.path.join(self.pageroot, stock)
+                        jsonFile = os.path.join(jsonFile, "gdrs.json")
+                        writeFile(jsonFile, data, 'records', False)
 
             ##十大流通股东
-            if section[1]:
-                sdltgd = section[1]
-                dateIndex = sdltgd.select(".tab li")
-                tables = sdltgd.select(".first table")
+            if sdltgd:
+                #sdltgd = section[1]
+                dateIndex = sdltgd[0].parent.select(".tab li")
+                tables = sdltgd[0].parent.select(".first table")
                 if len(dateIndex) == len(tables):
                     data = dict()
                     data['sdltgd'] = dict()
@@ -176,10 +184,10 @@ class SPIDER:
                     writeFile(jsonFile, data, 'records', False)
 
             ##十大股东
-            if section[2]:
-                sdgd = section[2]
-                dateIndex = sdgd.select(".tab li")
-                tables = sdgd.select(".first table")
+            if sdgd:
+                #sdgd = section[2]
+                dateIndex = sdgd[0].parent.select(".tab li")
+                tables = sdgd[0].parent.select(".first table")
                 if len(dateIndex) == len(tables):
                     data = dict()
                     data['sdgd'] = dict()
@@ -207,9 +215,9 @@ class SPIDER:
                     writeFile(jsonFile, data, 'records', False)
 
             ##十大股东持股变动
-            if section[3]:
-                sdgdcgbd = section[3]
-                trs = sdgdcgbd.select("tr")
+            if sdgdcgbd:
+                #sdgdcgbd = section[3]
+                trs = sdgdcgbd[0].parent.select("tr")
                 data = dict()
                 data['sdgdcgbd'] = dict()
                 if len(trs) > 1:
@@ -233,25 +241,23 @@ class SPIDER:
                 writeFile(jsonFile, data, 'records', False)
 
             ##基金持仓
-            if section[4]:
-                jjcc = section[4]
-                dateIndex = jjcc.select(".tab li")
-                tables = jjcc.select(".first table")
+            if jjcc:
+                #jjcc = section[4]
+                dateIndex = jjcc[0].parent.select(".tab li")
+                tables = jjcc[0].parent.select(".first table")
                 data = dict()
                 data['jjcc'] = dict()
                 if len(dateIndex) == len(tables):
                     for i in range(0, len(dateIndex)):
                         idx = dateIndex[i].get_text().decode()
                         data['jjcc'][idx] = dict()
-
                         table = tables[i]
                         tr = table.select("tr")
                         for t in range(1, len(tr)):
                             tds = tr[t].select("td")
                             data['jjcc'][idx][t] = dict()
-
-                            if len(tds) >6:
-                                data['jjcc'][idx][t]['rank'] = t  # 排名
+                            if len(tds) >7:
+                                data['jjcc'][idx][t]['rank'] = tr[0].get_text().decode()  # 排名
                                 data['jjcc'][idx][t]['name'] = tds[1].get_text().decode()  # 基金名称
                                 data['jjcc'][idx][t]['cgs'] = tds[3].get_text().decode()  # 持股数
                                 data['jjcc'][idx][t]['cgsz'] = tds[4].get_text().decode()  # 持仓市值
@@ -268,12 +274,12 @@ class SPIDER:
                 writeFile(jsonFile, data, 'records', False)
 
             #限售解禁
-            if section[5]:
-                xsjj = section[5]
-                trs = xsjj.select("tr")
+            if xsjj:
+                #xsjj = section[5]
+                trs = xsjj[0].parent.select("tr")
                 data = dict()
                 data['xsjj'] = dict()
-                if len(trs) >1:
+                if len(trs) >5:
                     for i in range(1, len(trs)):
                         rows = trs[i].select('.tips-dataL')
                         data['xsjj'][i] = dict()
@@ -306,10 +312,19 @@ class SPIDER:
             pass
 
     def start(self):
-        contdir = os.path.join(self.pageroot, '002334')
-        filename = os.path.join(contdir, "002334htmlContent.txt")
-        stock = "002334"
-        self.getContent(filename, stock)
+        if basicDate['errcode'] == 0:
+            lists = basicDate['data']
+            for k in lists:
+                print k
+                contdir = os.path.join(self.pageroot, k)
+                filename = os.path.join(contdir, k+"htmlContent.txt")
+                self.getContent(filename, k)
+
+        ##---Test--
+        # k = '002462'
+        # contdir = os.path.join(self.pageroot, k)
+        # filename = os.path.join(contdir, k + "htmlContent.txt")
+        # self.getContent(filename, k)
         #遍历目录
         # if basicDate['errcode'] == 0:
         #     lists = basicDate['data']

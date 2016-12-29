@@ -8,7 +8,7 @@ import config as config
 from readJsonFile import readFile
 from getDailyInfo import getDailyData
 from writeJsonFile import writeFile
-##获取单一票在发行期内的全部日交易数据
+##获取basicjson中未扫描的股票代码
 
 endDate = datetime.datetime.now().strftime("%Y-%m-%d") #以当天为截止日期
 basicFile = config.listsRootPath + '\\stockBasic.json'

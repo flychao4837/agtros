@@ -28,6 +28,7 @@ def getHistData(stock=None):
         filename = os.path.join(config.dataRootDailyTotal, stock, "histroySummary3Y.json")
         data = ts.get_hist_data(stock)
         writeFile(filename, data, 'index', False)
+        print stock
         #data.to_json(filename, orient='records', force_ascii=False)
 
 
