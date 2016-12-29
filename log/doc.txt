@@ -110,4 +110,91 @@ stockBasic.json数据格式
     # - ** amount **: 成交金额
 
 -----------------------
-##获取十大股东
+##三年历史行情 6.4版本
+ts.get_hist_data('600848')
+参数说明：
+
+    code：股票代码，即6位数字代码，或者指数代码（sh=上证指数 sz=深圳成指 hs300=沪深300指数 sz50=上证50 zxb=中小板 cyb=创业板）
+    start：开始日期，格式YYYY-MM-DD
+    end：结束日期，格式YYYY-MM-DD
+    ktype：数据类型，D=日k线 W=周 M=月 5=5分钟 15=15分钟 30=30分钟 60=60分钟，默认为D
+    retry_count：当网络异常后重试次数，默认为3
+    pause:重试时停顿秒数，默认为0
+
+返回值说明：
+
+    date：日期
+    open：开盘价
+    high：最高价
+    close：收盘价
+    low：最低价
+    volume：成交量
+    price_change：价格变动
+    p_change：涨跌幅
+    ma5：5日均价
+    ma10：10日均价
+    ma20:20日均价
+    v_ma5:5日均量
+    v_ma10:10日均量
+    v_ma20:20日均量
+    turnover:换手率[注：指数无此项]
+
+####获取历史复权数据，分为前复权和后复权数据，接口提供股票上市以来所有历史数据，默认为前复权。如果不设定开始和结束日期，则返回近一年的复权数据，从性能上考虑，推荐设定开始日期和结束日期，而且最好不要超过三年以上，获取全部历史数据，请分年段分步获取，取到数据后，请及时在本地存储。获取个股首个上市日期，请参考以下方法：
+
+df = ts.get_stock_basics()
+date = df.ix['600848']['timeToMarket'] #上市日期YYYYMMDD
+
+本接口还提供大盘指数的全部历史数据，调用时，请务必设定index参数为True,由于大盘指数不存在复权的问题，故可以忽略autype参数。
+
+ts.get_h_data('002337') #前复权
+ts.get_h_data('002337', autype='hfq') #后复权
+ts.get_h_data('002337', autype=None) #不复权
+ts.get_h_data('002337', start='2015-01-01', end='2015-03-16') #两个日期之间的前复权数据
+
+ts.get_h_data('399106', index=True) #深圳综合指数
+
+参数说明：
+
+    code:string,股票代码 e.g. 600848
+    start:string,开始日期 format：YYYY-MM-DD 为空时取当前日期
+    end:string,结束日期 format：YYYY-MM-DD 为空时取去年今日
+    autype:string,复权类型，qfq-前复权 hfq-后复权 None-不复权，默认为qfq
+    index:Boolean，是否是大盘指数，默认为False
+    retry_count : int, 默认3,如遇网络等问题重复执行的次数
+    pause : int, 默认 0,重复请求数据过程中暂停的秒数，防止请求间隔时间太短出现的问题
+
+返回值说明：
+
+    date : 交易日期 (index)
+    open : 开盘价
+    high : 最高价
+    close : 收盘价
+    low : 最低价
+    volume : 成交量
+    amount : 成交金额
+
+###一次性 实时行情
+
+一次性获取当前交易所有股票的行情数据（如果是节假日，即为上一交易日，结果显示速度取决于网速）
+
+import tushare as ts
+
+ts.get_today_all()
+
+返回值说明：
+
+    code：代码
+    name:名称
+    changepercent:涨跌幅
+    trade:现价
+    open:开盘价
+    high:最高价
+    low:最低价
+    settlement:昨日收盘价
+    volume:成交量
+    turnoverratio:换手率
+    amount:成交量
+    per:市盈率
+    pb:市净率
+    mktcap:总市值
+    nmc:流通市值
