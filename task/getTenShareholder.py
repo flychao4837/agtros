@@ -84,13 +84,16 @@ class SPIDER:
 
 
     # 获取页面内容
-    def getContent(self, file):
-        if os.path.isfile(file):
+    def getContent(self, filename, stock=None):
+        if os.path.isfile(filename):
             reload(sys)
             sys.setdefaultencoding('utf-8')
 
-            soup = BeautifulSoup(open(file), 'lxml')
+            soup = BeautifulSoup(open(filename), 'lxml')
             section = soup.select(".section")
+            if stock is None:
+                print stock +" error"
+                return
 
             ##股东人数
             if section[0]:
@@ -135,7 +138,7 @@ class SPIDER:
                             data['tencirshare'] = t
                             break
 
-                    jsonFile = os.path.join(self.pageroot, '002334')
+                    jsonFile = os.path.join(self.pageroot, stock)
                     jsonFile = os.path.join(jsonFile, "gdrs.json")
                     writeFile(jsonFile, data, 'records', False)
 
@@ -168,7 +171,7 @@ class SPIDER:
                             data['sdltgd'][idx][t]['zjgs'] = tds[5].get_text().decode() #增减股数
                             data['sdltgd'][idx][t]['bdbl'] = tds[6].get_text().decode() #变动比率
 
-                    jsonFile = os.path.join(self.pageroot, '002334')
+                    jsonFile = os.path.join(self.pageroot, stock)
                     jsonFile = os.path.join(jsonFile, "sdltgd.json")
                     writeFile(jsonFile, data, 'records', False)
 
@@ -199,13 +202,35 @@ class SPIDER:
                             data['sdgd'][idx][t]['zjgs'] = tds[4].get_text().decode()  # 增减股数
                             data['sdgd'][idx][t]['bdbl'] = tds[5].get_text().decode()  # 变动比率
 
-                    jsonFile = os.path.join(self.pageroot, '002334')
+                    jsonFile = os.path.join(self.pageroot, stock)
                     jsonFile = os.path.join(jsonFile, "sdgd.json")
                     writeFile(jsonFile, data, 'records', False)
 
             ##十大股东持股变动
             if section[3]:
                 sdgdcgbd = section[3]
+                trs = sdgdcgbd.select("tr")
+                data = dict()
+                data['sdgdcgbd'] = dict()
+                if len(trs) > 1:
+                    for i in range(1, len(trs)):
+                        rows = trs[i].select('.tips-dataL')
+                        data['sdgdcgbd'][i] = dict()
+                        data['sdgdcgbd'][i]['time'] = rows[0].get_text().decode()
+                        data['sdgdcgbd'][i]['rank'] = rows[1].get_text().decode()
+                        data['sdgdcgbd'][i]['gdmc'] = rows[2].get_text().decode()
+                        data['sdgdcgbd'][i]['gflx'] = rows[3].get_text().decode()
+                        data['sdgdcgbd'][i]['cgsl'] = rows[4].get_text().decode()
+                        data['sdgdcgbd'][i]['zgbl'] = rows[5].get_text().decode()
+                        data['sdgdcgbd'][i]['zjgs'] = rows[6].get_text().decode()
+                        data['sdgdcgbd'][i]['zjzgbl'] = rows[7].get_text().decode()
+                        data['sdgdcgbd'][i]['bdyy'] = rows[8].get_text().decode()
+                else:
+                    data['sdgdcgbd']['errmsg'] = "没有数据"
+
+                jsonFile = os.path.join(self.pageroot, stock)
+                jsonFile = os.path.join(jsonFile, "sdgdcgbd.json")
+                writeFile(jsonFile, data, 'records', False)
 
             ##基金持仓
             if section[4]:
@@ -238,7 +263,7 @@ class SPIDER:
                 else:
                     data['jjcc']['errmsg']="没有数据"
 
-                jsonFile = os.path.join(self.pageroot, '002334')
+                jsonFile = os.path.join(self.pageroot, stock)
                 jsonFile = os.path.join(jsonFile, "jjcc.json")
                 writeFile(jsonFile, data, 'records', False)
 
@@ -260,7 +285,7 @@ class SPIDER:
                 else:
                     data['xsjj']['errmsg'] = "没有数据"
 
-                jsonFile = os.path.join(self.pageroot, '002334')
+                jsonFile = os.path.join(self.pageroot, stock)
                 jsonFile = os.path.join(jsonFile, "xsjj.json")
                 writeFile(jsonFile, data, 'records', False)
 
@@ -283,7 +308,8 @@ class SPIDER:
     def start(self):
         contdir = os.path.join(self.pageroot, '002334')
         filename = os.path.join(contdir, "002334htmlContent.txt")
-        self.getContent(filename)
+        stock = "002334"
+        self.getContent(filename, stock)
         #遍历目录
         # if basicDate['errcode'] == 0:
         #     lists = basicDate['data']
