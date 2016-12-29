@@ -48,8 +48,8 @@ def getSingleStockDailyList(stock=""):
         endTime = datetime.datetime.strptime(endDate, "%Y-%m-%d").date()
         if(startTime < endTime):
 
-            addDate = startTime + datetime.timedelta(days=1)  # 逐天扫描
-            scanDate = addDate.strftime("%Y-%m-%d")
+            #addDate = startTime + datetime.timedelta(days=1)  # 逐天扫描
+            #scanDate = addDate.strftime("%Y-%m-%d")
 
             totalDays = (endTime -startTime).days
 
