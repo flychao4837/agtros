@@ -89,7 +89,8 @@ class SPIDER:
             reload(sys)
             sys.setdefaultencoding('utf-8')
 
-            soup = BeautifulSoup(open(filename), 'lxml')
+            #soup = BeautifulSoup(open(filename), 'lxml') #按xml解析
+            soup = BeautifulSoup(open(filename), 'html.parser') #按html格式解析
             section = soup.select(".section")
             gdrs = soup.select("#gdrs")
             sdltgd = soup.select("#sdltgd")
