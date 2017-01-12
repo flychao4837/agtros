@@ -49,10 +49,10 @@ def getHData(stock=None):
         datestr = str(df.ix[stock]['timeToMarket'])  # 上市日期YYYYMMDD
         datelen = len(datestr)
         timeToMarket = datestr[:4] + "-" + datestr[4:6] + "-" + datestr[6:]
-
+        print timeToMarket
 
         filename = os.path.join(config.dataRootDailyTotal, stock, "histroySummaryAllParts.json")
-        data = ts.get_h_data(stock, start='2015-01-01', end='2015-03-16')
+        data = ts.get_h_data(stock, start='2010-01-08', end='2012-01-06')
         writeFile(filename, data, 'index', False)
 
 ##get_today_all()
@@ -67,5 +67,5 @@ def getCodeCircle():
             getHistData(k)
 
 if __name__ == '__main__':
-    #getHistData('600048')
-    getCodeCircle()
+    getHData('600048')
+    #getCodeCircle()
