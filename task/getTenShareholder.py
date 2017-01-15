@@ -90,7 +90,7 @@ class SPIDER:
             sys.setdefaultencoding('utf-8')
 
             #soup = BeautifulSoup(open(filename), 'lxml') #按xml解析
-            soup = BeautifulSoup(open(filename), 'html.parser') #按html格式解析
+            soup = BeautifulSoup(open(filename), 'html') #按html格式解析
             section = soup.select(".section")
             gdrs = soup.select("#gdrs")
             sdltgd = soup.select("#sdltgd")
@@ -98,7 +98,7 @@ class SPIDER:
             sdgdcgbd = soup.select("#sdgdcgbd")
             jjcc = soup.select("#jjcc")
             xsjj = soup.select("#xsjj")
-
+            #print soup
             if stock is None:
                 print stock +" error"
                 return
@@ -316,10 +316,10 @@ class SPIDER:
         if basicDate['errcode'] == 0:
             lists = basicDate['data']
             for k in lists:
-                print k
                 contdir = os.path.join(self.pageroot, k)
                 filename = os.path.join(contdir, k+"htmlContent.txt")
                 self.getContent(filename, k)
+                print k
 
         ##---Test--
         # k = '002462'
@@ -337,7 +337,7 @@ class SPIDER:
         #         else:
         #             os.mkdir(contdir)
         #
-        #         filename = os.path.join(contdir, k+"htmlContent.txt");
+        #         filename = os.path.join(contdir, k+"htmlContent.txt")
         #         url ="http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz"+k
         #         try:
         #             indexPage = self.getPage(url)

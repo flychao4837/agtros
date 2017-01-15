@@ -1,5 +1,37 @@
 000016,000709 gbkerror
+###basicstock中未扫描的股票代码
+603218,300582,600996,603298,603886,002835,002833,
 
+##获取十大股东数据
 http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz002450
 
-603218,300582,600996,603298,603886,002835,002833,
+###沪深两市全部大宗股票交易数据一览
+http://data.eastmoney.com/dzjy/201301.html
+
+###融资融券数据，只针对可融资标的
+http://data.eastmoney.com/rzrq/detail.aspx?code=002450
+
+个股相关数据
+###个股综合数据   最新指标|大事提醒|新闻公告|核心题材|机构预测|研报摘要|主要指标|股东分析|龙虎榜单|大宗交易|融资融券
+http://f10.eastmoney.com/f10_v2/OperationsRequired.aspx?code=sz002450
+
+##公司大事， 大事提醒|重大事项|限售解禁|十大股东持股变动|高管持股变动|龙虎榜单|大宗交易|融资融券
+http://f10.eastmoney.com/f10_v2/CompanyBigNews.aspx?code=sz002450
+
+###同行分析  行业资讯|成长性比较|估值比较|杜邦分析比较|市场表现|公司规模
+http://f10.eastmoney.com/f10_v2/IndustryAnalysis.aspx?code=sz002450
+
+###关联个股  同行业个股排名|同概念个股排名|同地域个股排名
+http://f10.eastmoney.com/f10_v2/StockRelationship.aspx?code=sz002450
+
+###资金流向
+http://data.eastmoney.com/zjlx/002450.html
+
+####资本运作  募集资金来源|项目进度
+http://f10.eastmoney.com/f10_v2/CapitalOperation.aspx?code=sz002450
+
+###财务分析    主要指标|杜邦分析|报表明细|百分比报表
+http://f10.eastmoney.com/f10_v2/FinanceAnalysis.aspx?code=sz002450
+
+###龙虎榜单
+http://data.eastmoney.com/stock/lhb/002450.html

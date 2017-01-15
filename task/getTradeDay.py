@@ -21,17 +21,22 @@ def get_week_day(dateStr):
     else:
         return False
 def isShiyiHoloday(dateStr):
-    if dateStr[5:7] =="10" and (dateStr[8:10] >="01" and dateStr[8:10] <"08"):
+    if dateStr[5:7] =="10" and (dateStr[8:10] >="01" and dateStr[8:10] <"06"):
         return True
     else:
         return False
 
 def isWuYiHoliday(dateStr):
-    if dateStr[5:7] =="05" and (dateStr[8:10] >="01" and dateStr[8:10] <"04"):
+    if dateStr[5:7] =="05" and (dateStr[8:10] >="01" and dateStr[8:10] <"03"):
         return True
     else:
         return False
 
+def isYuandan(dateStr):
+    if dateStr[5:7] =="01" and (dateStr[8:10] >="01" and dateStr[8:10] <"03"):
+        return True
+    else:
+        return False
 def isZhongQiuHoliday(dateStr):
     pass
 def isCunJieHoliday(dateStr):
@@ -41,6 +46,8 @@ def isTradeDay(dateStr):
     if bool(isWuYiHoliday(dateStr)):
         return False
     elif bool(isShiyiHoloday(dateStr)):
+        return False
+    elif bool(isYuandan(dateStr)):
         return False
     else:
         return get_week_day(dateStr)
