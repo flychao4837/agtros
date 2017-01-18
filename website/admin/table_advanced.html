@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="media/css/DT_bootstrap.css" />
     <!-- END PAGE LEVEL STYLES -->
     <link rel="shortcut icon" href="media/image/favicon.ico" />
+    <!--add my css-->
+    <link href="media/css/components.css" rel="stylesheet" type="text/css" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -891,6 +893,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
+
                                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_1">
                                     <thead>
                                         <tr>
@@ -1241,6 +1244,79 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
+                                <!--添加自定义的form表单-->
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label">学年</label>
+                                            <select class="form-control input-small select2me ">
+                                                <option>2017</option>
+                                                <option>2016</option>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">学期</label>
+                                            <select class="form-control input-small select2me ">
+                                                <option>春季</option>
+                                                <option>暑假</option>
+                                                <option>秋季</option>
+                                                <option>寒假</option>
+                                                <option>春暑</option>
+                                                <option>秋寒</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">月份</label>
+                                            <select class="form-control input-small select2me ">
+                                                <option>5</option>
+                                                <option>4</option>
+                                                <option>3</option>
+                                                <option>···</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">年级</label>
+                                            <select class="form-control input-small select2me ">
+                                                <option>ALL</option>
+                                                <option>...</option>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">学科</label>
+                                            <select class="form-control input-small select2me ">
+                                                <option>ALL</option>
+                                                <option>...</option>
+                                                <option></option>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">教师类型</label>
+                                            <select class="form-control input-small select2me ">
+                                                <option>辅导老师</option>
+                                                <option>授课老师</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label">起止时间</label>
+                                            <div class="input-group date-picker input-daterange" data-date="" data-date-format="yyyy-mm-dd">
+                                                <input class="form-control" name="date_begin" id="date_begin3" readonly="" type="text">
+                                                <span class="input-group-addon"> 至 </span>
+                                                <input class="form-control" name="date_end" id="date_end3" readonly="" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                          <label class="control-label">教师名称</label>
+                                          <input class="form-control" placeholder="请输入教师ID或教师名字" type="text">
+                                        </div>
+                                        <div class="col-md-2" style="margin-top:23px;">
+                                            <button type="button" class="btn btn-circle blue">筛选</button>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <!--添加自定义的form表单 END-->
                                 <table class="table table-striped table-bordered table-hover table-full-width" id="sample_2">
                                     <thead>
                                         <tr>
@@ -1609,6 +1685,11 @@
     <script type="text/javascript" src="media/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="media/js/DT_bootstrap.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
+    <!--datePicker-->
+    <script type="text/javascript" src="media/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="media/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="media/js/bootstrap-datepicker.zh-CN.min.js"></script>
+    <link href="media/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="media/js/app.js"></script>
     <script src="media/js/table-advanced.js"></script>

@@ -3,8 +3,7 @@ var TableAdvanced = function () {
     var initTable1 = function() {
 
         /* Formating function for row details */
-        function fnFormatDetails ( oTable, nTr )
-        {
+        function fnFormatDetails ( oTable, nTr ){
             var aData = oTable.fnGetData( nTr );
             var sOut = '<table>';
             sOut += '<tr><td>Platform(s):</td><td>'+aData[2]+'</td></tr>';
@@ -72,7 +71,7 @@ var TableAdvanced = function () {
         });
     }
 
-     var initTable2 = function() {
+    var initTable2 = function() {
         var oTable = $('#sample_2').dataTable( {           
             "aoColumnDefs": [
                 { "aTargets": [ 0 ] }
