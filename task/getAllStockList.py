@@ -26,4 +26,4 @@ def getAllStockList(date=today):
         print basicDate['errmsg']
 
 if __name__ == '__main__':
-    getAllStockList("2017-01-10")
+    getAllStockList("2017-01-13")

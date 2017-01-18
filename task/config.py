@@ -15,7 +15,7 @@ curRootPath =filePath[0]
 configRootPath = os.path.join(curRootPath, 'config')
 dataRootPath = os.path.join(curRootPath, 'data')
 logRootPath = os.path.join(curRootPath, 'log')
-htmlRootPath = os.path.join(curRootPath, 'html')
+htmlRootPath = os.path.join(curRootPath, 'website')
 taskRootPath = os.path.join(curRootPath, 'task')
 listsRootPath = os.path.join(dataRootPath, 'lists')
 

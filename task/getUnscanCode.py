@@ -55,18 +55,20 @@ def getSingleStockDailyList(stock=""):
             if stock[0] == "2" or stock[0] == "9":
                 pass
             else:
+                #打印basic中未扫描的
                 compareFile = config.dataRootDailyTrade + "\\" + stock + "\\" + startDate + ".json"
                 if os.path.isfile(compareFile):
                     pass
                 else:
                     print stock+","
 
+
             ##获取间隔天数，遍历这些日期
-            # totalDays = (endTime - startTime).days
-            # for num in range(0, totalDays+1):
-            #     addDate = startTime + datetime.timedelta(days=num)
-            #     scanDate = addDate.strftime("%Y-%m-%d")
-            #     getDailyData(stock=stock, date=scanDate)
+            totalDays = (endTime - startTime).days
+            for num in range(0, totalDays+1):
+                addDate = startTime + datetime.timedelta(days=num)
+                scanDate = addDate.strftime("%Y-%m-%d")
+                getDailyData(stock=stock, date=scanDate)
         else:
             pass
 
@@ -87,22 +89,24 @@ def getCodeCircle():
     if basicDate['errcode'] == 0:
         lists = basicDate['data']
         for k in lists:
-            getSingleStockDailyList(k)
-            # try:
-            #     isStockScan = scanData['lastScanStock'].index(k)
-            # except Exception, e:
-            #     isStockScan = False
-            #
-            # if bool(isStockScan):
-            #     print k+"已经扫描"
-            #     continue
-            # else:
-            #     lastScanStock = scanData['curScanStock']
-            #     scanData['curScanStock'] = k
-            #     scanData['lastScanStock'] = scanData['lastScanStock']+","+lastScanStock
-            #     writeFile(scanFile, scanData)
-            #
-            #     getSingleStockDailyList(k)
+            #getSingleStockDailyList(k)
+            try:
+                isStockScan = scanData['lastScanStock'].index(k)
+            except Exception, e:
+                isStockScan = False
+
+            if bool(isStockScan):
+                # print k+"已经扫描"
+                # continue
+                getSingleStockDailyList(k)
+            else:
+                pass
+                # lastScanStock = scanData['curScanStock']
+                # scanData['curScanStock'] = k
+                # scanData['lastScanStock'] = scanData['lastScanStock']+","+lastScanStock
+                # writeFile(scanFile, scanData)
+                #
+                # getSingleStockDailyList(k)
 
 
 #getSingleStockDailyList("000004") ##执行到那里
