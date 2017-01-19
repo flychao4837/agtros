@@ -26,6 +26,9 @@ dataRootDailyNews = os.path.join(dataRootPath, 'dailyNews')
 dataRootKData = os.path.join(dataRootPath, 'KData')
 dataRoottenShareholder = os.path.join(dataRootPath, 'tenShareholder')
 
+### 定时脚本或计划任务目录
+moniterPath = os.path.join(curRootPath, "taskmonitor")
+
 ####常用扫描文件
 basicFile = os.path.join(listsRootPath, 'stockBasic.json')
 scanFile = os.path.join(configRootPath, 'scanData.json')
@@ -90,6 +93,11 @@ def creatRootDirectories():
         pass
     else:
         os.mkdir(dataRoottenShareholder)
+
+    if os.path.isdir(moniterPath):
+        pass
+    else:
+        os.mkdir(moniterPath)
 
 if __name__ == '__main__':
     creatRootDirectories()
