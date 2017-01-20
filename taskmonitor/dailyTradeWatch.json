@@ -5,20 +5,26 @@
     {
       "name": "海兴电力",
       "code": "603556",
-      "price": 39,
-      "rate": -5
+      "buyprice": 39,
+      "buyrate": -5,
+      "sellprice":40,
+      "sellrate":2
     },
     {
       "name": "参特科技",
       "code": "603098",
-      "price": 20,
-      "rate": -3
+      "buyprice": 20,
+      "buyrate": -3,
+      "sellprice":22,
+      "sellrate":10
     },
     {
       "name": "国海证券",
       "code": "000750",
-      "price": 6.5,
-      "rate": -6
+      "buyprice": 6.5,
+      "buyrate": -6,
+      "sellprice":7,
+      "sellrate":10
     }
   ]
 }

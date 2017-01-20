@@ -26,31 +26,39 @@ def getRealTimeQuotes(data=None):
     global _G_STATUS
     if data is not None:
         stock = data["code"]
-        warnprice = data["price"]
-        warnrate = data["rate"]
         df = ts.get_realtime_quotes(stock)
-        compute(df, stock, warnprice, warnrate)
+        compute(df, stock, data)
     else:
         _G_STATUS = False
         win32api.MessageBox(0, u"数据获取错误", u"警告", win32con.MB_IConERROR)
 
 ###计算
-def compute(data, stock, price, rate ) :
+def compute(data, stock, obj ):
     ##  name    open  pre_close   price    high     low     bid     ask
     L = data.head(1)
-
+    buypirice = float(obj["buyprice"])
+    buyrate = float(obj["buyrate"])
+    sellprice = float(obj["sellprice"])
+    sellrate = float(obj["sellrate"])
     diff = round((float(L["bid"]) - float(L["pre_close"]))/float(L["pre_close"])*100,2)
-    name = L["name"][0]
+    name = obj["name"] or L["name"][0]
     outstr = "{} open：{} ,报价：{} ,幅度：{}".format(str(name), float(L["pre_close"]), float(L["bid"]), diff)
     print outstr
     ask = float(L["ask"][0])
-    if ask < price:
+    if ask <= buypirice:
         ###下跌到目标价位
-        warnText = u"{} 达到目标价位{} ,现价{}".format(stock, price, ask)
+        warnText = u"{} 达到买入目标价位{} ,现价{}".format(stock, buypirice, ask)
         win32api.MessageBox(0, warnText, u"消息提醒", win32con.MB_OK)
-    elif diff <=rate:
+    elif diff <=buyrate:
         ##下跌幅度达到，包括跌停
-        warnText = u"{} 跌幅达到 {} 超过{}".format(stock, diff, rate)
+        warnText = u"{} 跌幅达到 {} 超过{}".format(stock, diff, buyrate)
+        win32api.MessageBox(0, warnText, u"消息提醒", win32con.MB_OK)
+    elif ask >= sellprice:
+        warnText = u"{} 达到卖出目标价位{} ,现价{}".format(stock, sellprice, ask)
+        win32api.MessageBox(0, warnText, u"消息提醒", win32con.MB_OK)
+    elif diff >=sellrate:
+        ##上涨幅度达到，包括涨停
+        warnText = u"{} 涨幅达到 {} 超过{} 可以卖出".format(stock, diff, sellrate)
         win32api.MessageBox(0, warnText, u"消息提醒", win32con.MB_OK)
     else:
         pass
