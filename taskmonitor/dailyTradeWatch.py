@@ -39,7 +39,7 @@ def compute(data, stock, price, rate ) :
     ##  name    open  pre_close   price    high     low     bid     ask
     L = data.head(1)
 
-    diff = round((float(L["bid"]) - float(L["pre_close"]))/float(L["pre_close"])*100,3)
+    diff = round((float(L["bid"]) - float(L["pre_close"]))/float(L["pre_close"])*100,2)
     name = L["name"][0]
     outstr = "{} open：{} ,报价：{} ,幅度：{}".format(str(name), float(L["pre_close"]), float(L["bid"]), diff)
     print outstr
