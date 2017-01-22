@@ -85,7 +85,7 @@ def main():
                 #print "在预警期内"
         else:
             _G_STATUS = False
-            pass
+            win32api.MessageBox(0, u"今天休息", u"消息提醒", win32con.MB_OK)
     else:
         win32api.MessageBox(0, u"任务Json文件读取错误", u"消息提醒", win32con.MB_OK)
 
