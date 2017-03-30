@@ -114,4 +114,4 @@ def runTask(func, day=0, hour=0, min=0, second=0):
         exit()
 
 if __name__ == '__main__':
-    runTask(main, day=0, hour=0, min=0, second=10)
+    runTask(main, day=0, hour=0, min=0, second=60)
