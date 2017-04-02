@@ -1,0 +1,30 @@
+{
+  "start": "2017-01-19",
+  "end": "2017-01-29",
+  "list":[
+    {
+      "name": "海兴电力",
+      "code": "603556",
+      "buyprice": 39,
+      "buyrate": -5,
+      "sellprice":40,
+      "sellrate":2
+    },
+    {
+      "name": "参特科技",
+      "code": "603098",
+      "buyprice": 20,
+      "buyrate": -3,
+      "sellprice":22,
+      "sellrate":10
+    },
+    {
+      "name": "国海证券",
+      "code": "000750",
+      "buyprice": 6.5,
+      "buyrate": -6,
+      "sellprice":7,
+      "sellrate":10
+    }
+  ]
+}
