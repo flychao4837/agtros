@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=UTF-8
-##获取日内详情
+##获取指定股票在指定日期内的交易详情
 
 import tushare as ts
 import datetime as datetime

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding=UTF-8
 
-#获取HTML页面，留作后续解析或是备份
+#获取十大股东、公司详情、资金面的HTML页面，留作后续解析或是备份
 import sys
 import os
 import time
@@ -103,12 +103,40 @@ class SPIDER:
                 else:
                     os.mkdir(contentdir)
                 ###十大股东
-                # filename = os.path.join(contentdir, k + "htmlContent.txt")
-                # url ="http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz"+k #十大股东数据
+                filename = os.path.join(contentdir, k + "htmlContent_1.txt")
+                url ="http://f10.eastmoney.com/f10_v2/ShareholderResearch.aspx?code=sz"+k #十大股东数据
 
-                # 个股综合数据
-                filename = os.path.join(contentdir, "ggzhsj.html")
-                url="http://f10.eastmoney.com/f10_v2/OperationsRequired.aspx?code=sz"+k
+                # # 个股综合数据
+                # filename = os.path.join(contentdir, "ggzhsj.html")
+                # url="http://f10.eastmoney.com/f10_v2/OperationsRequired.aspx?code=sz"+k
+
+                ## 公司大事
+                # filename = os.path.join(contentdir, "gsds.html")
+                # url ="http://f10.eastmoney.com/f10_v2/CompanyBigNews.aspx?code=sz"+k
+
+                ## 同行分析
+                # filename = os.path.join(contentdir, "thfx.html")
+                # url = "http://f10.eastmoney.com/f10_v2/IndustryAnalysis.aspx?code=sz" + k
+
+                ## 关联个股分析比较
+                # filename = os.path.join(contentdir, "glgg.html")
+                # url ="http://f10.eastmoney.com/f10_v2/StockRelationship.aspx?code=sz"+k
+
+                ## 个股资金流向
+                # filename = os.path.join(contentdir, "zjlx.html")
+                # url = "http://data.eastmoney.com/zjlx/"+k+".html"
+
+                ## 资本运作
+                # filename = os.path.join(contentdir, "zbyz.html")
+                # url = "http://f10.eastmoney.com/f10_v2/CapitalOperation.aspx?code=sz" + k
+
+                ## 财务分析
+                # filename = os.path.join(contentdir, "cwfx.html")
+                # url = "http://f10.eastmoney.com/f10_v2/FinanceAnalysis.aspx?code=sz" + k
+
+                # ## 龙虎榜
+                # filename = os.path.join(contentdir, "lhb.html")
+                # url = "http://data.eastmoney.com/stock/lhb/"+k+".html"
 
                 try:
                     indexPage = self.getPage(url)

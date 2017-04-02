@@ -6,6 +6,7 @@ import tushare as ts
 import config as config
 from readJsonFile import readFile
 from getDailyInfo import getDailyData
+##获取所有股票在指定日期的日内交易详情
 
 today = datetime.datetime.now().strftime("%Y-%m-%d")
 ##获取格式化的日期字符串
@@ -26,4 +27,4 @@ def getAllStockList(date=today):
         print basicDate['errmsg']
 
 if __name__ == '__main__':
-    getAllStockList("2017-01-10")
+    getAllStockList("2017-03-03")
