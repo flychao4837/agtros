@@ -1,29 +1,61 @@
 {
-  "start": "2017-01-19",
-  "end": "2017-01-29",
+  "start": "2017-03-01",
+  "end": "2017-03-29",
   "list":[
     {
       "name": "海兴电力",
       "code": "603556",
       "buyprice": 39,
-      "buyrate": -5,
-      "sellprice":40,
-      "sellrate":2
-    },
-    {
-      "name": "参特科技",
-      "code": "603098",
-      "buyprice": 20,
-      "buyrate": -3,
-      "sellprice":22,
+      "buyrate": -10,
+      "sellprice":49,
       "sellrate":10
     },
     {
-      "name": "国海证券",
-      "code": "000750",
-      "buyprice": 6.5,
-      "buyrate": -6,
-      "sellprice":7,
+      "name": "新天然气",
+      "code": "603393",
+      "buyprice": 42.5,
+      "buyrate": -10,
+      "sellprice":59,
+      "sellrate":10
+    },
+    {
+      "name": "森特股份",
+      "code": "603098",
+      "buyprice": 20,
+      "buyrate": -10,
+      "sellprice":30,
+      "sellrate":10
+    },
+    {
+      "name": "美亚光电",
+      "code": "002690",
+      "buyprice": 18.7,
+      "buyrate": -10,
+      "sellprice":22,
+      "sellrate":5
+    },
+    {
+      "name": "格力电器",
+      "code": "000651",
+      "buyprice": 25.5,
+      "buyrate": -5,
+      "sellprice":32,
+      "sellrate":5
+    },
+    {
+      "name": "宜昌交运",
+      "code": "002627",
+      "buyprice": 22.5,
+      "buyrate": -5,
+      "sellprice":32,
+      "sellrate":10
+    },
+    {
+      "name": "中国船舶",
+      "code": "600150",
+      "buyprice": 27,
+      "buyrate": -7,
+      "sellprice":36,
       "sellrate":10
     }
   ]
