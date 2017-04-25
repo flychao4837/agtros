@@ -55,3 +55,4 @@ data/*
 task/getDailyInfo.pyc
 task/writeJsonFile.pyc
 *.pyc
+website/nodeTask/node_modules/
