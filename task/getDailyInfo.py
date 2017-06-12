@@ -38,17 +38,22 @@ def getDailyData(stock="", date=""):
                     print(stock+" Pass")
                     return True
                 else:
+                    try:
+                        data = ts.get_today_ticks(stock)
+                        data.to_json(jsonFile, orient='records', force_ascii =False)
+                        print(stock)
+                        print(date)
+                        return True
+                    except:
+                        print("scan error " + stock )
+            else:
+                try:
                     data = ts.get_today_ticks(stock)
                     data.to_json(jsonFile, orient='records', force_ascii =False)
-                    print(stock)
-                    print(date)
-                    return True
-            else:
-                print "--"+stock
-                data = ts.get_today_ticks(stock)
-                data.to_json(jsonFile, orient='records', force_ascii =False)
 
-                return True
+                    return True
+                except:
+                    print("scan error " + stock)
 
         elif bool(date) & bool(stock):
             #按日期获取
@@ -65,17 +70,23 @@ def getDailyData(stock="", date=""):
                         print(stock+" Pass")
                         return True
                     else:
+                        try:
+                            data = ts.get_tick_data(stock, date=date)
+                            data.to_json(jsonFile, orient='records', force_ascii =False)
+                            print(stock)
+                            print(date)
+                            return True
+                        except:
+                            print("scan error " + stock + "--" + date)
+                else:
+                    try:
                         data = ts.get_tick_data(stock, date=date)
                         data.to_json(jsonFile, orient='records', force_ascii =False)
                         print(stock)
                         print(date)
                         return True
-                else:
-                    data = ts.get_tick_data(stock, date=date)
-                    data.to_json(jsonFile, orient='records', force_ascii =False)
-                    print(stock)
-                    print(date)
-                    return True
+                    except:
+                        print("scan error "+stock +"--"+date)
             else:
                 print ("Weekend Pass")
                 pass
