@@ -9,8 +9,11 @@ import config as config
 from readJsonFile import readFile
 from writeJsonFile import writeFile
 from getTradeDay import isTradeDay
+import sys
 
 dateStr = datetime.datetime.now().strftime("%Y-%m-%d")
+scanFile = config.configRootPath+'\\scanErrorRecord.json'
+scanConfigDate = readFile(scanFile)
 
 def getDailyData(stock="", date=""):
     if stock[0] == "2" or stock[0] == "9":
@@ -78,6 +81,7 @@ def getDailyData(stock="", date=""):
                             return True
                         except:
                             print("scan error " + stock + "--" + date)
+                            catchError(stock, date)
                 else:
                     try:
                         data = ts.get_tick_data(stock, date=date)
@@ -87,10 +91,19 @@ def getDailyData(stock="", date=""):
                         return True
                     except:
                         print("scan error "+stock +"--"+date)
+                        catchError(stock, date)
             else:
                 print ("Weekend Pass")
                 pass
 
+##捕获错误，记录位置，保存到scanData.json，从错误点重新开始
+def catchError (code,date):
+    scanData = scanConfigDate['data']
+    scanData['lastScanStock'] = code
+    scanData['lastScanDate'] = date
+    scanData['currDate'] = dateStr
+    writeFile(scanFile, scanData, 'records', False)
+    sys.exit()
 
 if __name__ == '__main__':
     getDailyData("002732", "2016-05-04")
